@@ -1,0 +1,15 @@
+
+			li{list-style:none;}
+			.tab1 ,.tab2{margin:0px 0px 0px 10px;width:935px;height:34px;border:1px #cfedff solid;border-bottom:0;}
+			.tab1 ul ,.tab2 ul{margin:0;padding:0;}
+			.tab1 li,.tab2 li{width:250px;float:left;padding:0 30px;height:34px;line-height:34px;text-align:center;border-right:1px #ebf7ff solid;cursor:pointer;}
+			.tab1 li.now,.tab2 li.now{width:250px;color:#5299c4;background:#fff;font-weight:bold;}
+			.tablist{margin:0px 0px 0px 10px;width:915px;height:500px;padding:10px;font-size:14px;line-height:24px;border:1px #cfedff solid;border-top:0;display:none;}
+			.block{display:block;}
+			.red{color:#BD0A01;}
+			fieldset{width:920px;border:1px #B0C0D1 solid;padding:10px;}
+			legend{background:#B0C0D1;padding:4px 10px;color:#fff;}
+			#c{margin-top:10px;}
+			.c1,.c2{width:878px;line-height:20px;}
+			.c1{color:#014CC9;}
+			.c2{color:#7E6095;display:none;}

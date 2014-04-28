@@ -1,0 +1,85 @@
+
+<script>
+$(function() {
+  $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-ohlcv.json&callback=?', function(data) {
+
+    // split the data set into ohlc and volume
+    var ohlc = [],
+      volume = [],
+      tem = [],
+      dataLength = data.length;
+      
+    for (i = 0; i < dataLength; i++) {
+      ohlc.push([
+        data[i][0], // the date
+        data[i][5] // close
+      ]);
+      
+      tem.push([
+        data[i][0], // the date
+        data[i][5] // the volume
+      ])
+      volume.push([
+        data[i][0], // the date
+        data[i][5] // the volume
+      ])
+    }
+
+
+    // create the chart
+    $('#main').highcharts('StockChart', {
+        
+        rangeSelector: {
+        inputEnabled: $('#main').width() > 480,
+            selected: 1
+        },
+
+        title: {
+            text: 'server load'
+        },
+
+        yAxis: [{
+            title: {
+                text: 'engagement'
+            },
+            height: 160,
+            lineWidth: 2
+        }, {
+            title: {
+                text: 'dash'
+            },
+            top: 248,
+            height: 60,
+            offset: 0,
+            lineWidth: 2
+        },{
+            title:{
+                text:'no dash'
+            },
+            top:318,
+            height:60,
+            offset:0,
+            lineWidth:2
+        
+        }],
+        
+        series: [{
+            name: 'engagement',
+            data: ohlc,
+        }, {
+            type: 'column',
+            name: 'dash',
+            data: volume,
+            yAxis: 1,
+        },{
+            type: 'column',
+            name: 'no dash',
+            data: tem,
+            yAxis:2,
+        }]
+    });
+  });
+});
+
+
+</script>
