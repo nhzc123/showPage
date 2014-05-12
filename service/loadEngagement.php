@@ -46,7 +46,8 @@ switch ($type)
 		$name = $_POST['name'];
 
 		//有八个小时误差 注意这里取得是系统时间 所以要根据系统时间来判断具体时候有小时误差
-		$timeLoad =strtotime( $_POST['time'])-28800;
+    //测试机不需要减掉28800秒
+		$timeLoad =strtotime( $_POST['time']);
 		$timeLoadEnd = $timeLoad+3600*24;
 	//	echo $area." ".$isp." ".$name." ".$time;
 		$sql="select startTime,rate from summary where startTime between ".$timeLoad." and ".$timeLoadEnd." and sLocation = '".$area."'";
