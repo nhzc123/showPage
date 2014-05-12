@@ -28,13 +28,13 @@ switch ($type)
 
 
 
-      	$sql="select startTime,rate from summary ".$condition." order by startTime limit 0,10000 ";
+      	$sql="select startTime,rate from summary ".$condition." order by startTime ";
       	include "connection.php";
       	$re=mysql_unbuffered_query($sql,$con);
       	$arr=array();
       	$arrCount=array();
 
-
+//        echo $sql;
       	$timestamp="";
 
 
@@ -135,7 +135,7 @@ switch ($type)
 
           mysql_close($con);
 
-
+	  $_SESSION['totalNumContext']=json_encode($totalNum);
       $_SESSION['num020Context']=json_encode($num020);
       $_SESSION['num2040Context']=json_encode($num2040);
       $_SESSION['num4060Context']=json_encode($num4060);

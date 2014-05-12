@@ -46,7 +46,7 @@ reServerResult ="{$reServerResult}";
        
 
 
-  var seriesOptions = [],
+   seriesOptions = [],
     yAxisOptions = [],
     seriesCounter = 0,
     names = ['0~20%','20~40%','40~60%','60~80%','80~100%'],
@@ -283,7 +283,7 @@ categories: [{$videoType}],
             },
             series: [{
                 name: 'percentage of types',
-                      data:[ {$videoNum}]
+                      data:[{$videoNum}]
             }]
         });
     });
@@ -789,9 +789,14 @@ document.getElementById('userCount').innerHTML = "";
     <input id ="userResult" name="userResult"  style="display:none"></input>
     <input id = "serverResult" name="serverResult"  style = "display:none"></input>
 
-    <input type="submit" class="button_submit" value ="sumit"/>
 
+    <input type="submit" class="button_submit" value ="submit"/>
     </form>
+    <div>
+      <form class="formit">
+      <input type="submit" class="button_submit" onclick="snapshot()" value="snapshot"></input>
+</form>
+      </div>
     <div>此页面加载时间较长，请耐心等待...
       </div>
 </div>
@@ -1048,5 +1053,11 @@ var count = 0;
 
 
 </script>
+<script>
+  function snapshot(){
 
+    window.open("contextSnapshot.php");
+  }
+
+</script>
 </html>

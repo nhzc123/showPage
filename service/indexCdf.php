@@ -21,7 +21,7 @@ switch ($type)
 
 
 
-	      $sql="select startTime,rate from summary  order by startTime limit 0,10000  ";
+	      $sql="select startTime,rate from summary  order by startTime  ";
       	include "connection.php";
       	$re=mysql_unbuffered_query($sql,$con);
       	$arr=array();
@@ -30,18 +30,18 @@ switch ($type)
 
       	$timestamp="";
 
-
+        //2013年9月9号下午11点时间戳1378738800
       	//2012年12月31日下午11点的时间戳为1356922800
       	//计算一个小时内的平均CDF
-        $startTime = 1356922800;
-        $endTime =   1356926400;
+        $startTime = 1378738800;
+        $endTime =   1356942400;
         $countTotal = 0;
         $count020 = 0;
         $count2040 = 0;
         $count4060 = 0;
         $count6080 = 0;
         $count80100 = 0;
-        $timeStamp =(1356922800+28800)."000";
+        $timeStamp =(1378738800+28800)."000";
       while($row = mysql_fetch_array($re))
          {
         		$time=$row['startTime'];

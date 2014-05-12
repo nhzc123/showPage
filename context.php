@@ -131,6 +131,8 @@ while($row = mysql_fetch_row($re))
   $num = $row[1];
   $device =$device. "[' ".$name."' , ".$num." ],";
 }
+
+	$_SESSION['deviceContext']=$device;
 //----------------
 
 //查询s1,s2,s3,s4
@@ -223,6 +225,10 @@ else
 }
 //-----------------------
 
+$_SESSION['s1Context']=$s1;
+$_SESSION['s2Context']=$s2;
+$_SESSION['s3Context']=$s3;
+$_SESSION['s4Context']=$s4;
 
 //查询video种类
 $sql ="select videoType,count(*) from summary ".$condition."  group by videoType";
@@ -239,7 +245,8 @@ while($row = mysql_fetch_row($re))
 }
 
 //----------------
-
+$_SESSION['videoTypeContext']=$videoType;
+$_SESSION['videoNumContext']=$videoNum;
 
 
 //查询dashTime种类
@@ -256,7 +263,8 @@ while($row = mysql_fetch_row($re))
 }
 //----------------
 
-
+$_SESSION['switchTimeContext']=$switchTime;
+$_SESSION['switchNumContext']=$switchNum;
 
 //查询userISP
 $sql = "select uISP,count(*) from summary ".$condition." group by uISP";
@@ -272,6 +280,7 @@ while($row = mysql_fetch_row($re))
 
 }
 
+$_SESSION['userISPContext']=$userISP;
 
 //查询serverISP
 $sql = "select sISP,count(*) from summary ".$condition." group by sISP";
@@ -287,7 +296,7 @@ while($row = mysql_fetch_row($re))
 
 }
 
-
+$_SESSION['serverISPContext']=$serverISP;
 
 
 

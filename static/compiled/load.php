@@ -20,7 +20,7 @@
 <script >
 //全局变量
 areas ="";
-allData;
+allData=="";
 </script>
 
 	
@@ -159,7 +159,6 @@ allData;
 </head>
 
 <body >
-    
     <!-- *********  Header  ********** -->
     
      <div id="header">
@@ -237,12 +236,17 @@ allData;
           ok
         </button>
       </div>
+      <div class="filter-submit">
+        <button onclick="snapshot()">
+          snapshot
+        </button>
+      </div>
     </div>
 
 
 
       
-      <div id="main" style="height:800px;mid-width:310px">
+      <div id="main" style="height:700px;mid-width:310px">
         </div>
 
 
@@ -378,7 +382,7 @@ function getOK(){
         return ;
   }
       
-  var seriesOptions = [],
+    seriesOptions = [],
     yAxisOptions = [],
     seriesCounter = 0,
     names = ['0~20%','20~40%','40~60%','60~80%','80~100%','dash','no dash'],
@@ -542,6 +546,7 @@ function getOK(){
 
       if (seriesCounter == names.length) {
         createChart();
+       // testwin=1;
       }
     });
   }); 
@@ -605,8 +610,6 @@ function createChart(){
 }
 
 
-  
-
 }
 
 </script>
@@ -626,6 +629,16 @@ function createChart(){
 
 
 
+
+</script>
+
+<script>
+
+  function snapshot(){
+    
+        window.open("static/template/loadSnapshot.htm"); 
+
+  }
 
 </script>
 

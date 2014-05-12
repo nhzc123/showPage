@@ -4,7 +4,7 @@ if (!$con) {
 	die('Could not connect to MySQL: ' . mysql_error());
 }
 mysql_query("SET NAMES 'utf8'");
-mysql_select_db("qoe2", $con);
+mysql_select_db("qoe3", $con);
 
 
 ?>

@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="reset.css" type="text/css">
     <link rel="stylesheet" href="styl.css" type="text/css">
         
-	
+  
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript" src="jquery.min.js"></script>
 
 <script src="echartjs/esl.js"></script>
 
@@ -150,7 +150,7 @@
     </tbody>
   </table>
 
-		
+    
 <div class="filter block">
       <div class="filter-label">
         filter
@@ -168,8 +168,13 @@
           ok
         </button>
       </div>
+      <div class="filter-submit">
+        <button onclick="snapshot()">
+          snapshot
+        </button>
+      </div>
     </div>
-		
+    
 
 
 
@@ -201,20 +206,20 @@
 </div>
 
 
-	<div id="loading"
-			style="position: fixed !important; position: absolute; display: none; top: 0; left: 0; height: 100%; width: 100%; z-index: 999; background: #000 url(http://interjc.googlecode.com/svn/trunk/waterfall/img/load.gif) no-repeat center center; opacity: 0.6; filter: alpha(opacity =                                                                                                                         60); font-size: 14px; line-height: 20px;"
-			onclick="javascript:turnoff('loading')">
-			<p id="loading-one"
-				style="color: #fff; position: absolute; top: 50%; left: 50%; margin: 20px 0 0 -50px; padding: 3px 10px;"
-				onclick="javascript:turnoff('loading')">
-				正在执行操作..
-			</p>
-		</div>
+  <div id="loading"
+      style="position: fixed !important; position: absolute; display: none; top: 0; left: 0; height: 100%; width: 100%; z-index: 999; background: #000 url(http://interjc.googlecode.com/svn/trunk/waterfall/img/load.gif) no-repeat center center; opacity: 0.6; filter: alpha(opacity =                                                                                                                         60); font-size: 14px; line-height: 20px;"
+      onclick="javascript:turnoff('loading')">
+      <p id="loading-one"
+        style="color: #fff; position: absolute; top: 50%; left: 50%; margin: 20px 0 0 -50px; padding: 3px 10px;"
+        onclick="javascript:turnoff('loading')">
+        正在执行操作..
+      </p>
+    </div>
 
 
-	  
-	
-	
+    
+  
+  
    <!-- *********  Footer  ********** -->
     
     <hr class="cleanit">
@@ -247,7 +252,7 @@
    }
    
   //  alert("hehe");
-  var seriesOptions = [],
+   seriesOptions = [],
     yAxisOptions = [],
     seriesCounter = 0,
     names = ['iPhone','other','pc','TV'],
@@ -344,9 +349,8 @@ function createChart(){
             dataType : "json",
             success : function(data){
 
-      //alert(data.videoType);
+            typeData = data;
 
-      $("#test").append(data.videoType);
         require.config({
             paths:{ 
                 'echarts' : './echartjs/echarts',
@@ -459,6 +463,7 @@ function createChart(){
             dataType : "json",
             success : function(data){
 
+              areasData = data;
             smax=parseInt(data.smax);
             smin=parseInt(data.smin);
 
@@ -567,10 +572,17 @@ function createChart(){
 
 </script>
 
+<script>
+
+  function snapshot(){
+
+    window.open("static/template/userSnapshot.htm");
+  }
+</script>
 
 
-		
-		<script src="hsjs/highstock.js"></script>
+    
+    <script src="hsjs/highstock.js"></script>
 <script src="hsjs/modules/exporting.js"></script>
 <script src="hcjs/highcharts.js"></script>
 <script src="hcjs/modules/exporting.js"></script>
@@ -578,3 +590,4 @@ function createChart(){
 
 
 </html>
+
