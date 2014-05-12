@@ -42,7 +42,7 @@ switch ($type)
       	//2012年12月31日下午11点的时间戳为1356922800
       	//计算一个小时内的平均CDF
         $startTime = 1378738800;
-        $endTime =   1356926400;
+        $endTime =   1378742400;
         $countTotal = 0;
         $count020 = 0;
         $count2040 = 0;
