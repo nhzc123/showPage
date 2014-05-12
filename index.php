@@ -1,4 +1,18 @@
 
+<?php
+
+$userName=$_POST['userName'];
+$password=$_POST['password'];
+session_start();
+
+if($_SESSION['access']==1)
+{
+	require('main.php');
+
+}
+
+?>
+
 
 
 

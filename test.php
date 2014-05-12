@@ -1,6 +1,8 @@
 <?php
-$time = "2013-02-02";
-
-echo strtotime($time);
-
+session_start();
+$_SESSION['hehe']="fdfds";
+if($_SESSION['hehe']==NULL)
+	echo "hehe";
+else
+	echo "haha";
 ?>

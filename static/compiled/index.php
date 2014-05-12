@@ -110,41 +110,6 @@ function createChart(){
 
 
 
-    $('#cdn1').highcharts('StockChart', {
-        chart: {
-        },
-
-        rangeSelector: {
-        inputEnabled: $('#engagemen').width() > 480,
-            selected: 4
-        },
-
-        title:{
-          text:'engagement',
-      },
-
-        yAxis: {
-          labels: {
-            formatter: function() {
-              return this.value ;
-            }
-          },
-          plotLines: [{
-            value: 0,
-            width: 2,
-            color: 'silver'
-          }]
-        },
-        
-        
-        tooltip: {
-          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> <br/>',
-          valueDecimals: 2
-        },
-        
-        series: seriesOptions
-
-    });
 
     $('#cdn2').highcharts('StockChart', {
         chart: {
@@ -186,6 +151,190 @@ function createChart(){
 
 }
 
+
+//cdn_ws--------------------------
+
+
+  var seriesOptions = [],
+    yAxisOptions = [],
+    seriesCounter_ws = 0,
+    names = ['0~20%','20~40%','40~60%','60~80%','80~100%'],
+    colors = Highcharts.getOptions().colors;
+
+      $.ajax({
+            type : "get",
+            async:false,
+            url : "service/indexCdf_ws.php?callback=?&type=2",
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+      seriesOptions[0] = {
+        name: "totalNumber",
+        data: data
+      };
+     
+    
+     $.each(names, function(i, name) {
+
+      nu=i+3;
+    $.getJSON('service/indexCdf_ws.php?callback=?&type='+nu, function(data) {
+
+      seriesOptions[i+1] = {
+        name: name,
+        data: data
+      };
+
+      // As we're loading the data asynchronously, we don't know what order it will arrive. So
+      // we keep a counter and create the chart when all the data is loaded.
+      seriesCounter_ws++;
+
+      if (seriesCounter_ws == names.length) {
+        createChart_ws();
+      }
+    });
+  }); 
+ 
+
+            }});
+//开始查询其他三条曲线，已经由第一个ajax请求完毕
+
+
+
+function createChart_ws(){
+
+    $('#cdn2').highcharts('StockChart', {
+        chart: {
+        },
+
+        rangeSelector: {
+        inputEnabled: $('#engagemen').width() > 480,
+            selected: 4
+        },
+
+        title:{
+          text:'engagement',
+      },
+
+        yAxis: {
+          labels: {
+            formatter: function() {
+              return this.value ;
+            }
+          },
+          plotLines: [{
+            value: 0,
+            width: 2,
+            color: 'silver'
+          }]
+        },
+        
+        
+        tooltip: {
+          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> <br/>',
+          valueDecimals: 2
+        },
+        
+        series: seriesOptions
+
+    });
+
+
+
+
+}
+
+//cdn_lx--------------------------
+
+
+  var seriesOptions = [],
+    yAxisOptions = [],
+    seriesCounter_lx = 0,
+    names = ['0~20%','20~40%','40~60%','60~80%','80~100%'],
+    colors = Highcharts.getOptions().colors;
+
+      $.ajax({
+            type : "get",
+            async:false,
+            url : "service/indexCdf_lx.php?callback=?&type=2",
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+      seriesOptions[0] = {
+        name: "totalNumber",
+        data: data
+      };
+     
+    
+     $.each(names, function(i, name) {
+
+      nu=i+3;
+    $.getJSON('service/indexCdf_lx.php?callback=?&type='+nu, function(data) {
+
+      seriesOptions[i+1] = {
+        name: name,
+        data: data
+      };
+
+      // As we're loading the data asynchronously, we don't know what order it will arrive. So
+      // we keep a counter and create the chart when all the data is loaded.
+      seriesCounter_lx++;
+
+      if (seriesCounter_lx == names.length) {
+        createChart_lx();
+      }
+    });
+  }); 
+ 
+
+            }});
+//开始查询其他三条曲线，已经由第一个ajax请求完毕
+
+
+
+function createChart_lx(){
+
+    $('#cdn1').highcharts('StockChart', {
+        chart: {
+        },
+
+        rangeSelector: {
+        inputEnabled: $('#engagemen').width() > 480,
+            selected: 4
+        },
+
+        title:{
+          text:'engagement',
+      },
+
+        yAxis: {
+          labels: {
+            formatter: function() {
+              return this.value ;
+            }
+          },
+          plotLines: [{
+            value: 0,
+            width: 2,
+            color: 'silver'
+          }]
+        },
+        
+        
+        tooltip: {
+          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> <br/>',
+          valueDecimals: 2
+        },
+        
+        series: seriesOptions
+
+    });
+
+
+
+
+}
 
 
       });
