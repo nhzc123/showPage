@@ -135,7 +135,75 @@ while($row = mysql_fetch_row($re))
 	$_SESSION['deviceContext']=$device;
 //----------------
 
-//查询s1,s2,s3,s4
+//查询s1,s2,s3,s4,s5,s6,s7
+
+
+if($reR[2]=="s7" || $reR[2] =="all")
+{
+
+
+  $sql = "select count(*) from summary where s7 != 0";
+
+  if($conditionBitRate!="")
+    $sql = $sql." and ".$conditionBitRate;
+
+
+  $re = mysql_query($sql,$con);
+  $s7="";
+  while($row = mysql_fetch_row($re))
+  {
+   $s7=$row[0];
+  }
+}
+else
+{
+  $s7="0";
+}
+//-----------------------
+if($reR[2]=="s6" || $reR[2] =="all")
+{
+
+
+  $sql = "select count(*) from summary where s6 != 0";
+
+  if($conditionBitRate!="")
+    $sql = $sql." and ".$conditionBitRate;
+
+
+  $re = mysql_query($sql,$con);
+  $s6="";
+  while($row = mysql_fetch_row($re))
+  {
+   $s6=$row[0];
+  }
+}
+else
+{
+  $s6="0";
+}
+//-----------------------
+if($reR[2]=="s5" || $reR[2] =="all")
+{
+
+
+  $sql = "select count(*) from summary where s5 != 0";
+
+  if($conditionBitRate!="")
+    $sql = $sql." and ".$conditionBitRate;
+
+
+  $re = mysql_query($sql,$con);
+  $s5="";
+  while($row = mysql_fetch_row($re))
+  {
+   $s5=$row[0];
+  }
+}
+else
+{
+  $s5="0";
+}
+//-----------------------
 if($reR[2] =="s4"|| $reR[2]=="all")
 {
 
@@ -229,6 +297,10 @@ $_SESSION['s1Context']=$s1;
 $_SESSION['s2Context']=$s2;
 $_SESSION['s3Context']=$s3;
 $_SESSION['s4Context']=$s4;
+
+$_SESSION['s5Context']=$s5;
+$_SESSION['s6Context']=$s6;
+$_SESSION['s7Context']=$s7;
 
 //查询video种类
 $sql ="select videoType,count(*) from summary ".$condition."  group by videoType";

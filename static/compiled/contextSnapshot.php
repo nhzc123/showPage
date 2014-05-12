@@ -195,6 +195,9 @@ $(function () {
             type: 'pie',
             name: 'bitRate',
             data: [
+              ['S7',   <?php echo $s7; ?>],
+              ['S6',   <?php echo $s6; ?>],
+              ['S5',   <?php echo $s5; ?>],
               ['S3',   <?php echo $s3; ?>],
             ['S2',       <?php echo $s2; ?>],
                 {

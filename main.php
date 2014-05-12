@@ -23,8 +23,32 @@ while($row = mysql_fetch_row($re))
 }
 //----------------
 
-//查询s1,s2,s3,s4
+//查询s1,s2,s3,s4,s5,s6,s7
 
+$sql = "select count(id) from summary where s7 != 0";
+
+$re = mysql_query($sql,$con);
+$s7="";
+while($row = mysql_fetch_row($re))
+{
+  $s7=$row[0];
+}
+$sql = "select count(id) from summary where s6 != 0";
+
+$re = mysql_query($sql,$con);
+$s6="";
+while($row = mysql_fetch_row($re))
+{
+  $s6=$row[0];
+}
+$sql = "select count(id) from summary where s5 != 0";
+
+$re = mysql_query($sql,$con);
+$s5="";
+while($row = mysql_fetch_row($re))
+{
+  $s5=$row[0];
+}
 $sql = "select count(id) from summary where s4 != 0";
 
 $re = mysql_query($sql,$con);

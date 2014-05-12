@@ -10,6 +10,9 @@ $s1=$_SESSION['s1Context'];
 $s2=$_SESSION['s2Context'];
 $s3=$_SESSION['s3Context'];
 $s4=$_SESSION['s4Context'];
+$s5=$_SESSION['s5Context'];
+$s6=$_SESSION['s6Context'];
+$s7=$_SESSION['s7Context'];
 
 $videoType=$_SESSION['videoTypeContext'];
 $videoNum=$_SESSION['videoNumContext'];
