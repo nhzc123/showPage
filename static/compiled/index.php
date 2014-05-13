@@ -30,7 +30,6 @@
 
       $.ajax({
             type : "get",
-            async:false,
             url : "service/indexCdf.php?callback=?&type=2",
             dataType : "jsonp",
             jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
@@ -111,41 +110,6 @@ function createChart(){
 
 
 
-    $('#cdn2').highcharts('StockChart', {
-        chart: {
-        },
-
-        rangeSelector: {
-        inputEnabled: $('#engagemen').width() > 480,
-            selected: 4
-        },
-
-        title:{
-          text:'engagement',
-      },
-
-        yAxis: {
-          labels: {
-            formatter: function() {
-              return this.value ;
-            }
-          },
-          plotLines: [{
-            value: 0,
-            width: 2,
-            color: 'silver'
-          }]
-        },
-        
-        
-        tooltip: {
-          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> <br/>',
-          valueDecimals: 2
-        },
-        
-        series: seriesOptions
-
-    });
 
 
 
@@ -155,7 +119,7 @@ function createChart(){
 //cdn_ws--------------------------
 
 
-  var seriesOptions = [],
+  var seriesOptions_ws = [],
     yAxisOptions = [],
     seriesCounter_ws = 0,
     names = ['0~20%','20~40%','40~60%','60~80%','80~100%'],
@@ -169,7 +133,7 @@ function createChart(){
             jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
             success : function(data){
 
-      seriesOptions[0] = {
+      seriesOptions_ws[0] = {
         name: "totalNumber",
         data: data
       };
@@ -180,7 +144,7 @@ function createChart(){
       nu=i+3;
     $.getJSON('service/indexCdf_ws.php?callback=?&type='+nu, function(data) {
 
-      seriesOptions[i+1] = {
+      seriesOptions_ws[i+1] = {
         name: name,
         data: data
       };
@@ -235,7 +199,7 @@ function createChart_ws(){
           valueDecimals: 2
         },
         
-        series: seriesOptions
+        series: seriesOptions_ws
 
     });
 
@@ -247,7 +211,7 @@ function createChart_ws(){
 //cdn_lx--------------------------
 
 
-  var seriesOptions = [],
+  var seriesOptions_lx = [],
     yAxisOptions = [],
     seriesCounter_lx = 0,
     names = ['0~20%','20~40%','40~60%','60~80%','80~100%'],
@@ -261,7 +225,7 @@ function createChart_ws(){
             jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
             success : function(data){
 
-      seriesOptions[0] = {
+      seriesOptions_lx[0] = {
         name: "totalNumber",
         data: data
       };
@@ -272,7 +236,7 @@ function createChart_ws(){
       nu=i+3;
     $.getJSON('service/indexCdf_lx.php?callback=?&type='+nu, function(data) {
 
-      seriesOptions[i+1] = {
+      seriesOptions_lx[i+1] = {
         name: name,
         data: data
       };
@@ -327,7 +291,7 @@ function createChart_lx(){
           valueDecimals: 2
         },
         
-        series: seriesOptions
+        series: seriesOptions_lx
 
     });
 

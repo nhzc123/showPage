@@ -49,8 +49,9 @@ switch ($type)
     //测试机不需要减掉28800秒
 		$timeLoad =strtotime( $_POST['time']);
 		$timeLoadEnd = $timeLoad+3600*24;
+		$timeLoadEnd2 = $timeLoad+3600*25;
 	//	echo $area." ".$isp." ".$name." ".$time;
-		$sql="select startTime,rate from summary where startTime between ".$timeLoad." and ".$timeLoadEnd." and sLocation = '".$area."'";
+		$sql="select startTime,rate from summary where startTime between ".$timeLoad." and ".$timeLoadEnd2." and sLocation = '".$area."'";
 
 
 
@@ -294,7 +295,7 @@ switch ($type)
         	}
 
 
-                $startTime = $startTime+3600;
+                $startTime = $startTime;
                 $timeStamp = ($startTime+28800)."000";
                 $tem = array((float)$timeStamp,$countTotal);
                 $totalNum[]=$tem;

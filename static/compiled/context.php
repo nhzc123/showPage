@@ -798,6 +798,7 @@ document.getElementById('userCount').innerHTML = "";
 
     <input type="submit" class="button_submit" value ="submit"/>
     </form>
+    </br>
     <div>
       <input type="submit" class="button_snapshot" onclick="snapshot()" value="snapshot"></input>
       </div>

@@ -18,15 +18,13 @@ switch ($type)
 {
   case 2:
 		{
-
 		if($_SESSION['totalNum']!=NULL){
 
-			$result=json_encode($totalNum);
+			$result=$_SESSION['totalNum'];
      		 $callback=$_GET['callback'];
 			echo $callback."($result)";
 		      break;
 		}
-
 	      $sql="select startTime,rate from summary  order by startTime  ";
       	include "connection.php";
       	$re=mysql_unbuffered_query($sql,$con);
