@@ -20,6 +20,15 @@ switch ($type)
 		{
 
 
+			if($_SESSION['totalNum_ws']!=NULL){
+
+			$result=$_SESSION['totalNum_ws'];
+   		 	$callback=$_GET['callback'];
+			echo $callback."($result)";
+    		  break;
+
+			}
+
 
 	      $sql="select startTime,rate from summary_ws  order by startTime  ";
       	include "connection.php";
@@ -139,6 +148,7 @@ switch ($type)
       $_SESSION['num6080_ws']=json_encode($num6080);
       $_SESSION['num80100_ws']=json_encode($num80100);
 			$result=json_encode($totalNum);
+	  $_SESSION['totalNum_ws']=$result;
       $callback=$_GET['callback'];
 			echo $callback."($result)";
       break;

@@ -54,7 +54,6 @@ reServerResult ="<?php echo $reServerResult; ?>";
 
       $.ajax({
             type : "get",
-            async:false,
             url : "service/userEngagement.php?callback=?&type=2",
             dataType : "jsonp",
             jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)

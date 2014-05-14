@@ -19,7 +19,14 @@ switch ($type)
   case 2:
 		{
 
+		if($_SESSION['totalNum_lx']!=NULL){
 
+			$result=$_SESSION['totalNum_lx'];
+    		$callback=$_GET['callback'];
+			echo $callback."($result)";
+    		  break;
+
+		}
 
 	      $sql="select startTime,rate from summary_lx  order by startTime  ";
       	include "connection.php";
@@ -135,6 +142,7 @@ switch ($type)
       $_SESSION['num6080_lx']=json_encode($num6080);
       $_SESSION['num80100_lx']=json_encode($num80100);
 			$result=json_encode($totalNum);
+	  $_SESSION['totalNum_lx']=$result;
       $callback=$_GET['callback'];
 			echo $callback."($result)";
       break;
