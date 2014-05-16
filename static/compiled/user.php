@@ -22,7 +22,7 @@
       $.ajax({
           type:"get",
           dataType:'json',
-          url:"service/ajax/getUserTop10.php",
+          url:"service/user/getUserTop10.php",
           success:function(data){
 
 
@@ -59,6 +59,7 @@
             <li><a href="context.php" >Context</a></li>
             <li><a href="load.php">Load</a></li>            
             <li><a href="user.php" class="active">User</a></li>
+            <li><a href="switch.php">Switch</a></li>
          </ul>
         </div>
         
@@ -261,12 +262,11 @@
 
       $.ajax({
             type : "post",
-            async:false,
             data:{
               userId:userId,
 
             },
-            url : "service/deviceEngagement.php?callback=?&type=2",
+            url : "service/user/deviceEngagement.php?callback=?&type=2",
             dataType : "jsonp",
             jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
             success : function(data){
@@ -285,7 +285,7 @@
      $.each(names, function(i, name) {
 
       nu=i+3;
-    $.getJSON('service/deviceEngagement.php?callback=?&type='+nu, function(data) {
+    $.getJSON('service/user/deviceEngagement.php?callback=?&type='+nu, function(data) {
 
       
       seriesOptions[i+1] = {
@@ -345,7 +345,7 @@ function createChart(){
       $.ajax({
             type : "get",
             async:true,
-            url : "service/typeEngagement.php?userId="+userId,
+            url : "service/user/typeEngagement.php?userId="+userId,
             dataType : "json",
             success : function(data){
 
@@ -459,7 +459,7 @@ function createChart(){
       $.ajax({
             type : "get",
             async:true,
-            url : "service/ajax/getUserArea.php?userId="+userId,
+            url : "service/user/getUserArea.php?userId="+userId,
             dataType : "json",
             success : function(data){
 

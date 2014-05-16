@@ -1,0 +1,186 @@
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>New QoE</title>
+    
+<link rel="stylesheet" href="https://ssl.mail.163.com/mimg.127.net/xm/all/qa/css/iframe.css">
+    <link rel="stylesheet" href="../../reset.css" type="text/css">
+    <link rel="stylesheet" href="../../styl.css" type="text/css">
+        
+	
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="../../jquery.min.js"></script>
+
+<script src="../../echartjs/esl.js"></script>
+
+		
+	
+
+
+</head>
+
+<body >
+    
+  <div style="width:960px;margin:auto;">	
+       <div id="engagement" style="height: 500px; min-width: 310px"></div>
+
+      
+       <div id="afterSwitch" style="height: 500px; min-width: 310px"></div>
+   
+
+
+
+
+    </div>
+
+
+    
+
+
+
+
+         
+
+</body>
+
+
+
+
+
+		
+		<script src="../../hsjs/highstock.js"></script>
+<script src="../../hsjs/modules/exporting.js"></script>
+<script src="../../hcjs/highcharts.js"></script>
+<script src="../../hcjs/modules/exporting.js"></script>
+
+
+
+<script>
+
+
+
+$(document).ready(function() {
+
+
+
+    $('#engagement').highcharts('StockChart', {
+        chart: {
+        },
+
+        rangeSelector: {
+        inputEnabled: $('#engagement').width() > 480,
+            selected: 4
+        },
+
+        title:{
+          text:'engagement',
+      },
+
+        yAxis: {
+          labels: {
+            formatter: function() {
+              return this.value ;
+            }
+          },
+          plotLines: [{
+            value: 0,
+            width: 2,
+            color: 'silver'
+          }]
+        },
+        
+        
+        tooltip: {
+          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> <br/>',
+          valueDecimals: 2
+        },
+        
+        series: window.opener.seriesOptions
+
+    });
+
+
+    afterCdf=[];
+    as=window.opener.afterCdf;
+    for(i=0;i<as.length;i++)
+        afterCdf[i]=as[i];
+
+
+        require.config({
+            paths:{ 
+                'echarts' : '../../echartjs/echarts',
+                'echarts/chart/line' : '../../echartjs/echarts-map'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('afterSwitch')); 
+
+                      option = {
+    title : {
+        text: 'afterSwitchCdf',
+        subtext: 'BesTV'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['0%','10%','20%','30%','40%','50%','60%','70%','80%','90%','100%']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            axisLabel : {
+                show:true,
+                interval: 'auto',    // {number}
+                formatter: '{value} %',    // Template formatter!
+            }
+        }
+    ],
+    series : [
+        {
+            name:'成交',
+            type:'line',
+            smooth:true,
+            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+            data:afterCdf
+        }
+
+    ]
+};
+                    
+
+
+                
+                myChart.setOption(option); 
+
+
+              }
+              );
+    });
+
+</script>
+</html>

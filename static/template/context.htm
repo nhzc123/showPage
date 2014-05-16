@@ -54,7 +54,7 @@ reServerResult ="{$reServerResult}";
 
       $.ajax({
             type : "get",
-            url : "service/userEngagement.php?callback=?&type=2",
+            url : "service/context/userEngagement.php?callback=?&type=2",
             dataType : "jsonp",
             jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
             success : function(data){
@@ -68,7 +68,7 @@ reServerResult ="{$reServerResult}";
      $.each(names, function(i, name) {
 
       nu=i+3;
-    $.getJSON('service/userEngagement.php?callback=?&type='+nu, function(data) {
+    $.getJSON('service/context/userEngagement.php?callback=?&type='+nu, function(data) {
 
       seriesOptions[i+1] = {
         name: name,
@@ -653,6 +653,7 @@ document.getElementById('userCount').innerHTML = "";
             <li><a href="context.php" class="active">Context</a></li>
             <li><a href="load.php">Load</a></li>            
             <li><a href="user.php">User</a></li>            
+            <li><a href="switch.php">Switch</a></li>
          </ul>
         </div>
         

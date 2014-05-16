@@ -14,7 +14,7 @@ if($_SESSION['access']==1)
 ?>
 
 
-
+<div>from 2013.09.10 to 2013.09.30</div>
 
 <form action="check.php" method="post" class="formit">
 		 <a>userName:  </a> <input type="text" name="userName" />

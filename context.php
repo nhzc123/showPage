@@ -71,7 +71,7 @@ if ($reResult != null)
 
 				$condition .="uLocation in ('".$uLo[0]."'";
 		for($i=1;$i<$uLeng;$i++)
-			$condition .=",' ".$uLo[$i]."'";
+			$condition .=",'".$uLo[$i]."'";
 
 		$condition .=") ";
 
@@ -88,7 +88,7 @@ if ($reResult != null)
 			$condition .=" sLocation in ('".$sLo[0]."'";
 
 		for($i=1;$i<$sLeng;$i++)
-			$condition .=",' ".$sLo[$i]."'";
+			$condition .=",'".$sLo[$i]."'";
 
 		$condition .=") ";
 

@@ -30,7 +30,7 @@
 
       $.ajax({
             type : "get",
-            url : "service/indexCdf.php?callback=?&type=2",
+            url : "service/home/indexCdf.php?callback=?&type=2",
             dataType : "jsonp",
             jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
             success : function(data){
@@ -44,7 +44,7 @@
      $.each(names, function(i, name) {
 
       nu=i+3;
-    $.getJSON('service/indexCdf.php?callback=?&type='+nu, function(data) {
+    $.getJSON('service/home/indexCdf.php?callback=?&type='+nu, function(data) {
 
       seriesOptions[i+1] = {
         name: name,
@@ -127,7 +127,7 @@ function createChart(){
 
       $.ajax({
             type : "get",
-            url : "service/indexCdf_ws.php?callback=?&type=2",
+            url : "service/home/indexCdf_ws.php?callback=?&type=2",
             dataType : "jsonp",
             jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
             success : function(data){
@@ -141,7 +141,7 @@ function createChart(){
      $.each(names, function(i, name) {
 
       nu=i+3;
-    $.getJSON('service/indexCdf_ws.php?callback=?&type='+nu, function(data) {
+    $.getJSON('service/home/indexCdf_ws.php?callback=?&type='+nu, function(data) {
 
       seriesOptions_ws[i+1] = {
         name: name,
@@ -218,7 +218,7 @@ function createChart_ws(){
 
       $.ajax({
             type : "get",
-            url : "service/indexCdf_lx.php?callback=?&type=2",
+            url : "service/home/indexCdf_lx.php?callback=?&type=2",
             dataType : "jsonp",
             jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
             success : function(data){
@@ -232,7 +232,7 @@ function createChart_ws(){
      $.each(names, function(i, name) {
 
       nu=i+3;
-    $.getJSON('service/indexCdf_lx.php?callback=?&type='+nu, function(data) {
+    $.getJSON('service/home/indexCdf_lx.php?callback=?&type='+nu, function(data) {
 
       seriesOptions_lx[i+1] = {
         name: name,
@@ -894,7 +894,7 @@ myChart3.on(ecConfig.EVENT.MAP_SELECTED, function(param){
             <li><a href="context.php">Context</a></li>
             <li><a href="load.php">Load</a></li>
             <li><a href="user.php">User</a></li>
-             
+         <li ><a href="switch.php">Switch</a></li> 
          </ul>
         </div>
         

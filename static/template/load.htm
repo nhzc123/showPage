@@ -115,7 +115,7 @@ allData=="";
 
 
             },   
-            url : "service/ajax/getCdnState.php",
+            url : "service/load/getCdnState.php",
             success : function(data){
               allData=data; 
               ispCount="";
@@ -172,6 +172,7 @@ allData=="";
             <li><a href="context.php" >Context</a></li>
             <li><a href="load.php" class="active">Load</a></li>            
             <li><a href="user.php" >User</a></li>
+            <li><a href="switch.php">Switch</a></li>
          </ul>
         </div>
         
@@ -398,7 +399,7 @@ function getOK(){
               time:time,
 
             },
-            url : "service/loadEngagement.php?callback=?&type=2",
+            url : "service/load/loadEngagement.php?callback=?&type=2",
             dataType : "jsonp",
             jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
             success : function(data){
@@ -412,7 +413,7 @@ function getOK(){
      $.each(names, function(i, name) {
 
       nu=i+3;
-    $.getJSON('service/loadEngagement.php?callback=?&type='+nu, function(data) {
+    $.getJSON('service/load/loadEngagement.php?callback=?&type='+nu, function(data) {
 
       if(i==5){
         seriesOptions[6]={
