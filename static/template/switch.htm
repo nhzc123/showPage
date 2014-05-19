@@ -342,6 +342,7 @@ document.getElementById('userCount').innerHTML = "";
        <div id="afterSwitch" style="height: 500px; min-width: 310px"></div>
    
 
+       <div id="afterRemain" style="height: 500px; min-width: 310px"></div>
 
 
 
@@ -471,7 +472,7 @@ document.getElementById('userCount').innerHTML = "";
   function getOK(){
 
     if(selectResult=="")
-      selectResult="all all all all all";
+      selectResult="all all all all";
 
     if(userResult=="")
       userResult="all";
@@ -575,6 +576,102 @@ function createChart(){
     });
   }
 
+
+
+    afterRemain="";
+
+
+      $.ajax({
+            type : "post",
+            url : "service/switch/afterRemainCdf.php?callback=?",
+            data:{
+              selectResult:selectResult,
+              userResult:userResult,
+              serverResult:serverResult,
+
+            },
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+        //alert(data);
+      afterRemain=data;
+
+        
+        require.config({
+            paths:{ 
+                'echarts' : './echartjs/echarts',
+                'echarts/chart/line' : './echartjs/echarts-map'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('afterRemain')); 
+
+                      option = {
+    title : {
+        text: 'afterRemainCdf',
+        subtext: 'BesTV'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['0%','10%','20%','30%','40%','50%','60%','70%','80%','90%','100%']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            axisLabel : {
+                show:true,
+                interval: 'auto',    // {number}
+                formatter: '{value} %',    // Template formatter!
+            }
+        }
+    ],
+    series : [
+        {
+            name:'成交',
+            type:'line',
+            smooth:true,
+            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+            data:afterRemain
+        }
+    ]
+};
+                    
+
+
+                
+                myChart.setOption(option); 
+
+
+              }
+              );
+            }
+          });
 
 
 

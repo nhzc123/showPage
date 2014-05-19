@@ -97,7 +97,7 @@ if($condition !="")
 
 	  //------------提取结束------------------------------------
 
-	      $sql="select switchPercent from switchingData  ".$condition;
+	      $sql="select videoLength,switchChunkNum,continueChunkNum from switchingData  ".$condition;
 //echo $sql;
 
       	include "../../connection.php";
@@ -112,11 +112,22 @@ if($condition !="")
       while($row = mysql_fetch_array($re))
          {
 			 	$sum++;
-        	//	$time=$row['startTime'];
-        		$rate=(float)$row['switchPercent']/100;
+        		//$time=$row['startTime'];
+				$videoLength=$row['videoLength']/10;
+				$switchChunkNum=$row['switchChunkNum'];
+				$continueChunkNum=$row['continueChunkNum'];
+
+				$tem = $videoLength-$switchChunkNum;
+
+				if($tem == 0)
+					$rate = 0;
+				else
+					$rate = (float)($continueChunkNum/$tem);
 
 				if($rate >1)
 					$rate = 1;
+				if($rate <0)
+					$rate = 0;
 
 				if($rate==0)
 					$totalNum[0]++;
@@ -146,8 +157,7 @@ if($condition !="")
 
 	  for($i=0;$i<10;$i++)
 		  $totalNum[$i+1]+=$totalNum[$i];
-
-//	  echo $totalNum[10]."///".$sum."///";
+	//  echo $totalNum[10]."///".$sum."///";
 	  if($sum!=0)
 	  for($i=0;$i<11;$i++)
 		  $totalNum[$i]=($totalNum[$i]/$sum)*100;
