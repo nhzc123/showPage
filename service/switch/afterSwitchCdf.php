@@ -50,6 +50,13 @@ if ($reResult != null)
 			$condition .=" sISP = '".$reR[3]."'";
 	}
 
+	if($reR[4]!="all")
+	{
+		if($condition !="")
+			$condition .=" and switchType = '".$reR[4]."'";
+		else
+			$condition .=" switchType = '".$reR[4]."'";
+	}
 //如果uLocation有参数
 	if($reUserResult!="all")
 	{

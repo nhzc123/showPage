@@ -275,6 +275,12 @@ document.getElementById('userCount').innerHTML = "";
             <dd><div><a>移动</a></div></dd>
             <dd><div><a>其他</a></div></dd>
           </dl>
+        <dl>
+            <dt>switchType:</dt>
+            <dd><div><a>all</a></div></dd>
+            <dd><div><a>up</a></div></dd>
+            <dd><div><a>down</a></div></dd>
+          </dl>
       </div>
       </br>
       </br>
@@ -472,7 +478,7 @@ document.getElementById('userCount').innerHTML = "";
   function getOK(){
 
     if(selectResult=="")
-      selectResult="all all all all";
+      selectResult="all all all all all";
 
     if(userResult=="")
       userResult="all";
@@ -483,100 +489,7 @@ document.getElementById('userCount').innerHTML = "";
 //    window.open("switchSnapshot.php");
 
     document.getElementById("loading").style.display="inline"; 
-
-   seriesOptions = [],
-    yAxisOptions = [],
-    seriesCounter = 0,
-    names = ['0~20%','20~40%','40~60%','60~80%','80~100%'],
-    colors = Highcharts.getOptions().colors;
-
-      $.ajax({
-            type : "post",
-            url : "service/switch/switchEngagement.php?callback=?&type=2",
-            data:{
-              selectResult:selectResult,
-              userResult:userResult,
-              serverResult:serverResult,
-
-            },
-            dataType : "jsonp",
-            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
-            success : function(data){
-
-      seriesOptions[0] = {
-        name: "totalNumber",
-        data: data
-      };
-     
-    
-     $.each(names, function(i, name) {
-
-      nu=i+3;
-    $.getJSON('service/switch/switchEngagement.php?callback=?&type='+nu, function(data) {
-
-      seriesOptions[i+1] = {
-        name: name,
-        data: data
-      };
-
-      // As we're loading the data asynchronously, we don't know what order it will arrive. So
-      // we keep a counter and create the chart when all the data is loaded.
-      seriesCounter++;
-
-      if (seriesCounter == names.length) {
-        createChart();
-      }
-    });
-  }); 
- 
-
-            }});
-//开始查询其他三条曲线，已经由第一个ajax请求完毕
-
-
-
-function createChart(){
-
-
-
-    $('#engagement').highcharts('StockChart', {
-        chart: {
-        },
-
-        rangeSelector: {
-        inputEnabled: $('#engagement').width() > 480,
-            selected: 4
-        },
-
-        title:{
-          text:'engagement',
-      },
-
-        yAxis: {
-          labels: {
-            formatter: function() {
-              return this.value ;
-            }
-          },
-          plotLines: [{
-            value: 0,
-            width: 2,
-            color: 'silver'
-          }]
-        },
-        
-        
-        tooltip: {
-          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> <br/>',
-          valueDecimals: 2
-        },
-        
-        series: seriesOptions
-
-    });
-  }
-
-
+    //drawCdf-----------
 
     afterRemain="";
 
@@ -763,7 +676,6 @@ function createChart(){
 
 
                 
-    document.getElementById("loading").style.display="none"; 
                 myChart.setOption(option); 
 
 
@@ -771,6 +683,113 @@ function createChart(){
               );
             }
           });
+
+
+
+
+
+    //-----------------
+
+
+
+
+
+
+   seriesOptions = [],
+    yAxisOptions = [],
+    seriesCounter = 0,
+    names = ['0~20%','20~40%','40~60%','60~80%','80~100%'],
+    colors = Highcharts.getOptions().colors;
+
+      $.ajax({
+            type : "post",
+            url : "service/switch/switchEngagement.php?callback=?&type=2",
+            data:{
+              selectResult:selectResult,
+              userResult:userResult,
+              serverResult:serverResult,
+
+            },
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+      seriesOptions[0] = {
+        name: "totalNumber",
+        data: data
+      };
+     
+    
+     $.each(names, function(i, name) {
+
+      nu=i+3;
+    $.getJSON('service/switch/switchEngagement.php?callback=?&type='+nu, function(data) {
+
+      seriesOptions[i+1] = {
+        name: name,
+        data: data
+      };
+
+      // As we're loading the data asynchronously, we don't know what order it will arrive. So
+      // we keep a counter and create the chart when all the data is loaded.
+      seriesCounter++;
+
+      if (seriesCounter == names.length) {
+        createChart();
+    document.getElementById("loading").style.display="none"; 
+      }
+    });
+  }); 
+ 
+
+            }});
+//开始查询其他三条曲线，已经由第一个ajax请求完毕
+
+
+
+function createChart(){
+
+
+
+    $('#engagement').highcharts('StockChart', {
+        chart: {
+        },
+
+        rangeSelector: {
+        inputEnabled: $('#engagement').width() > 480,
+            selected: 4
+        },
+
+        title:{
+          text:'engagement',
+      },
+
+        yAxis: {
+          labels: {
+            formatter: function() {
+              return this.value ;
+            }
+          },
+          plotLines: [{
+            value: 0,
+            width: 2,
+            color: 'silver'
+          }]
+        },
+        
+        
+        tooltip: {
+          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> <br/>',
+          valueDecimals: 2
+        },
+        
+        series: seriesOptions
+
+    });
+  }
+
+
+
 }
 
 </script>

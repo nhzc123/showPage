@@ -34,7 +34,7 @@ $condition="";
 if ($reResult != null)
 {
 
-	//$re 0表示device 1表示video type  2表示userISP 3表示serverISP
+	//$re 0表示device 1表示video type  2表示userISP 3表示serverISP 4表示switchType
 
 	if($reR[0]!="all")
 	{
@@ -65,6 +65,13 @@ if ($reResult != null)
 			$condition .=" and sISP = '".$reR[3]."'";
 		else
 			$condition .=" sISP = '".$reR[3]."'";
+	}
+	if($reR[4]!="all")
+	{
+		if($condition !="")
+			$condition .=" and switchType = '".$reR[4]."'";
+		else
+			$condition .=" switchType = '".$reR[4]."'";
 	}
 
 //如果uLocation有参数
