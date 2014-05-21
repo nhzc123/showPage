@@ -20,6 +20,8 @@
 selectResult = "";
 userResult ="";
 serverResult="";
+scopeTop="";
+scopeEnd="";
 </script>
 
 	
@@ -275,10 +277,22 @@ document.getElementById('userCount').innerHTML = "";
             <dd><div><a>移动</a></div></dd>
             <dd><div><a>其他</a></div></dd>
           </dl>
-      </div>
-      </br>
-      </br>
+        <dl>
+            <dt>switchType:</dt>
+            <dd><div><a>all</a></div></dd>
+            <dd><div><a>up</a></div></dd>
+            <dd><div><a>down</a></div></dd>
+          </dl>
+      <dl>
 
+        <dt>switchTimeScope:</dt>
+          <dd><div><input style="width:100px" value="0" id="scopeTop"type="text"> -</div></dd>
+          <dd><div><input style="width:100px" value="100" id="scopeEnd"type="text"></div></dd>(between 0~100%)
+        </dl>
+      </div>
+
+      </br>
+      </br>
       <div style="width:620px;height:auto;margin-left:auto;margin-right:auto;font-size:18px;">
       
 <a style="font-weight:bold;color:#333333;float:left;width:150px" href="javascript:void(0)" onclick="show('light')">user areas:</a>
@@ -342,6 +356,7 @@ document.getElementById('userCount').innerHTML = "";
        <div id="afterSwitch" style="height: 500px; min-width: 310px"></div>
    
 
+       <div id="afterRemain" style="height: 500px; min-width: 310px"></div>
 
 
 
@@ -478,103 +493,120 @@ document.getElementById('userCount').innerHTML = "";
 
     if(serverResult=="")
       serverResult="all";
+
+    scopeTop=$("#scopeTop").val();
+    scopeEnd=$("#scopeEnd").val();
+
+    if(scopeTop<0 || scopeTop>100 ||scopeTop<0 ||scopeEnd>100 ||scopeTop>scopeEnd){
+      alert("input is not allowed");
+      return ;
+    }
     //alert(serverResult);
 //    window.open("switchSnapshot.php");
 
     document.getElementById("loading").style.display="inline"; 
+    //drawCdf-----------
 
-   seriesOptions = [],
-    yAxisOptions = [],
-    seriesCounter = 0,
-    names = ['0~20%','20~40%','40~60%','60~80%','80~100%'],
-    colors = Highcharts.getOptions().colors;
+    afterRemain="";
+
 
       $.ajax({
             type : "post",
-            url : "service/switch/switchEngagement.php?callback=?&type=2",
+            url : "service/switch/afterRemainCdf.php?callback=?",
             data:{
               selectResult:selectResult,
               userResult:userResult,
               serverResult:serverResult,
+              scopeTop:scopeTop,
+              scopeEnd:scopeEnd
 
             },
             dataType : "jsonp",
             jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
             success : function(data){
 
-      seriesOptions[0] = {
-        name: "totalNumber",
-        data: data
-      };
-     
-    
-     $.each(names, function(i, name) {
+        //alert(data);
+      afterRemain=data;
 
-      nu=i+3;
-    $.getJSON('service/switch/switchEngagement.php?callback=?&type='+nu, function(data) {
-
-      seriesOptions[i+1] = {
-        name: name,
-        data: data
-      };
-
-      // As we're loading the data asynchronously, we don't know what order it will arrive. So
-      // we keep a counter and create the chart when all the data is loaded.
-      seriesCounter++;
-
-      if (seriesCounter == names.length) {
-        createChart();
-      }
-    });
-  }); 
- 
-
-            }});
-//开始查询其他三条曲线，已经由第一个ajax请求完毕
-
-
-
-function createChart(){
-
-
-
-    $('#engagement').highcharts('StockChart', {
-        chart: {
-        },
-
-        rangeSelector: {
-        inputEnabled: $('#engagement').width() > 480,
-            selected: 4
-        },
-
-        title:{
-          text:'engagement',
-      },
-
-        yAxis: {
-          labels: {
-            formatter: function() {
-              return this.value ;
+      if(Array.isArray(afterRemain))
+      alert("array");
+      else
+      alert("object");
+        
+        require.config({
+            paths:{ 
+                'echarts' : './echartjs/echarts',
+                'echarts/chart/line' : './echartjs/echarts-map'
             }
-          },
-          plotLines: [{
-            value: 0,
-            width: 2,
-            color: 'silver'
-          }]
-        },
+        });
         
-        
-        tooltip: {
-          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> <br/>',
-          valueDecimals: 2
-        },
-        
-        series: seriesOptions
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('afterRemain')); 
 
-    });
-  }
+                      option = {
+    title : {
+        text: 'afterRemainCdf',
+        subtext: 'BesTV'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['0%','10%','20%','30%','40%','50%','60%','70%','80%','90%','100%']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            axisLabel : {
+                show:true,
+                interval: 'auto',    // {number}
+                formatter: '{value} %',    // Template formatter!
+            }
+        }
+    ],
+    series : [
+        {
+            name:'成交',
+            type:'line',
+            smooth:true,
+            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+            data:afterRemain
+        }
+    ]
+};
+                    
 
+
+                
+                myChart.setOption(option); 
+
+
+              }
+              );
+            }
+          });
 
 
 
@@ -589,6 +621,8 @@ function createChart(){
               selectResult:selectResult,
               userResult:userResult,
               serverResult:serverResult,
+              scopeTop:scopeTop,
+              scopeEnd:scopeEnd
 
             },
             dataType : "jsonp",
@@ -666,7 +700,6 @@ function createChart(){
 
 
                 
-    document.getElementById("loading").style.display="none"; 
                 myChart.setOption(option); 
 
 
@@ -674,6 +707,115 @@ function createChart(){
               );
             }
           });
+
+
+
+
+
+    //-----------------
+
+
+
+
+
+
+   seriesOptions = [],
+    yAxisOptions = [],
+    seriesCounter = 0,
+    names = ['0~20%','20~40%','40~60%','60~80%','80~100%'],
+    colors = Highcharts.getOptions().colors;
+
+      $.ajax({
+            type : "post",
+            url : "service/switch/switchEngagement.php?callback=?&type=2",
+            data:{
+              selectResult:selectResult,
+              userResult:userResult,
+              serverResult:serverResult,
+              scopeTop:scopeTop,
+              scopeEnd:scopeEnd
+
+            },
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+      seriesOptions[0] = {
+        name: "totalNumber",
+        data: data
+      };
+     
+    
+     $.each(names, function(i, name) {
+
+      nu=i+3;
+    $.getJSON('service/switch/switchEngagement.php?callback=?&type='+nu, function(data) {
+
+      seriesOptions[i+1] = {
+        name: name,
+        data: data
+      };
+
+      // As we're loading the data asynchronously, we don't know what order it will arrive. So
+      // we keep a counter and create the chart when all the data is loaded.
+      seriesCounter++;
+
+      if (seriesCounter == names.length) {
+        createChart();
+    document.getElementById("loading").style.display="none"; 
+      }
+    });
+  }); 
+ 
+
+            }});
+//开始查询其他三条曲线，已经由第一个ajax请求完毕
+
+
+
+function createChart(){
+
+
+
+    $('#engagement').highcharts('StockChart', {
+        chart: {
+        },
+
+        rangeSelector: {
+        inputEnabled: $('#engagement').width() > 480,
+            selected: 4
+        },
+
+        title:{
+          text:'engagement',
+      },
+
+        yAxis: {
+          labels: {
+            formatter: function() {
+              return this.value ;
+            }
+          },
+          plotLines: [{
+            value: 0,
+            width: 2,
+            color: 'silver'
+          }]
+        },
+        
+        
+        tooltip: {
+          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> <br/>',
+          valueDecimals: 2
+        },
+        
+        series: seriesOptions
+
+    });
+  }
+
+
+
 }
 
 </script>

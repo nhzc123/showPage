@@ -392,68 +392,87 @@ $(function () {
                
             ]
         }]
-    });
+        });
 });
     
 
 		</script>
     <script type="text/javascript">
 $(function () {
-        $('#typeOfVideo').highcharts({
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: 'type of video'
-            },
-            subtitle: {
-                text: 'Source: BesTV'
-            },
-            xAxis: {
-                categories: [{$videoType}],
-                title: {
-                    text: null
-                }
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: ' number',
-                    align: 'high'
-                },
-                labels: {
-                    overflow: 'justify'
-                }
-            },
-            tooltip: {
-                valueSuffix: ' '
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 100,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: '#FFFFFF',
-                shadow: true
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: ' types',
-                      data: [{$videoNum}]
-            }]
+
+        require.config({
+            paths:{ 
+                'echarts' : './echartjs/echarts',
+                'echarts/chart/bar' : './echartjs/echarts-map'
+            }
         });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('typeOfVideo')); 
+                     
+          
+option = {
+    title : {
+        text: 'typeOfVideo',
+        subtext: 'BesTV'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['typeOfVideo']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'value',
+            boundaryGap : [0, 0.01]
+        }
+    ],
+    yAxis : [
+        {
+            type : 'category',
+                   data :[{$videoType}]
+        }
+    ],
+    series : [
+        {
+            name:'typeOfVideo',
+            type:'bar',
+            data:[{$videoNum}]
+        },
+       
+    ]
+};
+                    
+
+
+
+
+
+
+
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
     });
 
 
@@ -464,61 +483,81 @@ $(function () {
 
     <script type="text/javascript">
 $(function () {
-        $('#dashTransTime').highcharts({
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: 'dash Translation Time'
-            },
-            subtitle: {
-                text: 'Source: BesTV'
-            },
-            xAxis: {
-                categories: [{$switchTime}],
-                title: {
-                    text: null
-                }
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'change time',
-                    align: 'high'
-                },
-                labels: {
-                    overflow: 'justify'
-                }
-            },
-            tooltip: {
-                valueSuffix: ' '
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
-            legend: {
-                layout: 'horizontal',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 100,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: '#FFFFFF',
-                shadow: true
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'time',
-                      data: [{$switchNum}]
-            }]
+
+        require.config({
+            paths:{ 
+                'echarts' : './echartjs/echarts',
+                'echarts/chart/bar' : './echartjs/echarts-map'
+            }
         });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('dashTransTime')); 
+                     
+          
+option = {
+    title : {
+        text: 'dashTransTime',
+        subtext: 'BesTV'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['dashTransTime']
+    },
+    color:[ '#87cefa'],
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'value',
+            boundaryGap : [0, 0.01]
+        }
+    ],
+    yAxis : [
+        {
+            type : 'category',
+                   data :[{$switchTime}]
+        }
+    ],
+    series : [
+        {
+            name:'dashTransTime',
+            type:'bar',
+            data:[{$switchNum}]
+        },
+       
+    ]
+};
+                    
+
+
+
+
+
+
+
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
     });
 
 

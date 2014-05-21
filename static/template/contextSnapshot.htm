@@ -6,14 +6,14 @@
     <title>New QoE</title>
     
 <link rel="stylesheet" href="https://ssl.mail.163.com/mimg.127.net/xm/all/qa/css/iframe.css">
-    <link rel="stylesheet" href="reset.css" type="text/css">
-    <link rel="stylesheet" href="styl.css" type="text/css">
+    <link rel="stylesheet" href="../../reset.css" type="text/css">
+    <link rel="stylesheet" href="../../styl.css" type="text/css">
         
 	
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery.min.js"></script>
 
-<script src="echartjs/esl.js"></script>
+<script src="../../echartjs/esl.js"></script>
 
 
 
@@ -28,53 +28,611 @@
        
 
 
-   seriesOptions = [],
-    yAxisOptions = [],
-    seriesCounter = 0,
-    names = ['0~20%','20~40%','40~60%','60~80%','80~100%'],
-    colors = Highcharts.getOptions().colors;
+//typeOfVideo------------
+typeOfVideoData= window.opener.typeOfVideoData;
+videoType=[];
+for(i=0;i<typeOfVideoData.videoType.length;i++)
+videoType[i]=typeOfVideoData.videoType[i];
+videoNum=[];
+for(i=0;i<typeOfVideoData.videoNum.length;i++)
+videoNum[i]=typeOfVideoData.videoNum[i];
+        require.config({
+            paths:{ 
+                'echarts' : '../../echartjs/echarts',
+                'echarts/chart/bar' : '../../echartjs/echarts-map'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('typeOfVideo')); 
+                     
+          
+option = {
+    title : {
+        text: 'typeOfVideo',
+        subtext: 'BesTV'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['typeOfVideo']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'value',
+            boundaryGap : [0, 0.01]
+        }
+    ],
+    yAxis : [
+        {
+            type : 'category',
+            data :videoType
+        }
+    ],
+    series : [
+        {
+            name:'typeOfVideo',
+            type:'bar',
+            data:videoNum
+        },
+       
+    ]
+};
+                    
+
+
+
+
+
+
+
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+
+
+
+
+//----------------------
+
+//dashTransTime------------
+dashTransTimeData=window.opener.dashTransTimeData;
+switchTime=[];
+for(i=0;i<dashTransTimeData.switchTime.length;i++)
+switchTime[i]=dashTransTimeData.switchTime[i];
+switchNum=[];
+for(i=0;i<dashTransTimeData.switchNum.length;i++)
+switchNum[i]=dashTransTimeData.switchNum[i];
+        require.config({
+            paths:{ 
+                'echarts' : '../../echartjs/echarts',
+                'echarts/chart/bar' : '../../echartjs/echarts-map'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('dashTransTime')); 
+                     
+          
+option = {
+    title : {
+        text: 'dashTransTime',
+        subtext: 'BesTV'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['dashTransTime']
+    },
+    color:[ '#87cefa'],
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'value',
+            boundaryGap : [0, 0.01]
+        }
+    ],
+    yAxis : [
+        {
+            type : 'category',
+            data :switchTime
+        }
+    ],
+    series : [
+        {
+            name:'dashTransTime',
+            type:'bar',
+            data:switchNum
+        },
+       
+    ]
+};
+                    
+
+
+
+
+
+
+
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+
+
+
+
+
+
+
+
+//----------------------
+
+
+
+//bitRate------------
+bitRateData="";
 
       $.ajax({
-            type : "get",
-            async:false,
-            url : "service/userEngagementSnapshot.php?callback=?&type=2",
+            type : "post",
+            url : "../../service/context/bitRate.php?callback=?",
+            data:{
+
+              type:2,
+            },
             dataType : "jsonp",
             jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
             success : function(data){
 
-      seriesOptions[0] = {
-        name: "totalNumber",
-        data: data
-      };
-     
-    
-     $.each(names, function(i, name) {
+              bitRateData=data;
+        require.config({
+            paths:{ 
+                'echarts' : '../../echartjs/echarts',
+                'echarts/chart/bar' : '../../echartjs/echarts-map'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('bitRate')); 
+                     
+          
+option = {
+    title : {
+        text: 'bitRate',
+        subtext: 'BesTV',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+        data:['s1','s2','s3','s4','s5','s6','s7']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    series : [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius : '55%',
+            center: ['50%', 225],
+                data:bitRateData.bitRateArray
+        }
+    ]
+};
+                     
 
-      nu=i+3;
-    $.getJSON('service/userEngagementSnapshot.php?callback=?&type='+nu, function(data) {
-
-      seriesOptions[i+1] = {
-        name: name,
-        data: data
-      };
-
-      // As we're loading the data asynchronously, we don't know what order it will arrive. So
-      // we keep a counter and create the chart when all the data is loaded.
-      seriesCounter++;
-
-      if (seriesCounter == names.length) {
-        createChart();
-      }
-    });
-  }); 
- 
-
-            }});
-//开始查询其他三条曲线，已经由第一个ajax请求完毕
 
 
 
-function createChart(){
+
+
+
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+
+
+
+
+
+
+
+
+            }
+          });
+//----------------------
+
+
+//device------------
+deviceData="";
+
+      $.ajax({
+            type : "post",
+            url : "../../service/context/device.php?callback=?",
+            data:{
+
+              type:2,
+            },
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+              deviceData=data;
+        require.config({
+            paths:{ 
+                'echarts' : '../../echartjs/echarts',
+                'echarts/chart/bar' : '../../echartjs/echarts-map'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('device')); 
+                     
+          
+option = {
+    title : {
+        text: 'device',
+        subtext: 'BesTV',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+        data:deviceData.name
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    series : [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius : '55%',
+            center: ['50%', 225],
+            data:deviceData.deviceValue
+        }
+    ]
+};
+                     
+
+
+
+
+
+
+
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+
+
+
+
+
+
+
+
+            }
+          });
+//----------------------
+
+
+
+//userISP------------
+userISPData="";
+
+      $.ajax({
+            type : "post",
+            url : "../../service/context/userISP.php?callback=?",
+            data:{
+
+              type:2,
+            },
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+              userISPData=data;
+        require.config({
+            paths:{ 
+                'echarts' : '../../echartjs/echarts',
+                'echarts/chart/bar' : '../../echartjs/echarts-map'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('userISP')); 
+                     
+          
+option = {
+
+    title : {
+        text: 'userISP',
+        subtext: 'BesTV',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+        data:userISPData.name
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    series : [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius : ['50%', '70%'],
+            itemStyle : {
+                normal : {
+                    label : {
+                        show : false
+                    },
+                    labelLine : {
+                        show : false
+                    }
+                },
+                emphasis : {
+                    label : {
+                        show : true,
+                        position : 'center',
+                        textStyle : {
+                            fontSize : '30',
+                            fontWeight : 'bold'
+                        }
+                    }
+                }
+            },
+            data:userISPData.value
+        }
+    ]
+};
+                    
+
+
+
+
+
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+
+
+
+
+
+
+
+
+            }
+          });
+//----------------------
+
+
+
+
+//serverISP------------
+serverISPData="";
+
+      $.ajax({
+            type : "post",
+            url : "../../service/context/serverISP.php?callback=?",
+            data:{
+
+              type:2,
+            },
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+              serverISPData=data;
+        require.config({
+            paths:{ 
+                'echarts' : '../../echartjs/echarts',
+                'echarts/chart/bar' : '../../echartjs/echarts-map'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('serverISP')); 
+                     
+          
+option = {
+
+    title : {
+        text: 'serverISP',
+        subtext: 'BesTV',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+        data:serverISPData.name
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    series : [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius : ['50%', '70%'],
+            itemStyle : {
+                normal : {
+                    label : {
+                        show : false
+                    },
+                    labelLine : {
+                        show : false
+                    }
+                },
+                emphasis : {
+                    label : {
+                        show : true,
+                        position : 'center',
+                        textStyle : {
+                            fontSize : '30',
+                            fontWeight : 'bold'
+                        }
+                    }
+                }
+            },
+            data:serverISPData.value
+        }
+    ]
+};
+                    
+
+
+
+
+
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+
+
+
+
+
+
+
+
+            }
+          });
+//----------------------
+
+
+
+//----------------------
+
+
+
+
+
+
+//engagement----------
+   seriesOptions = window.opener.seriesOptions;
+
+
+
 
 
 
@@ -116,7 +674,10 @@ function createChart(){
 
 
 
-}
+//-----------------------
+
+
+
 
 
 
@@ -124,325 +685,6 @@ function createChart(){
     
     
     </script>
-		<script type="text/javascript">
-      
-$(function () {
-    $('#device').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-        },
-        title: {
-            text: 'device '
-        },
-        tooltip: {
-    	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    color: '#000000',
-                    connectorColor: '#000000',
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'Users Rate',
-            data: [
-            {$device}
-              
-              ]
-        }]
-    });
-});
-    
-		</script>
-		
-			<script type="text/javascript">
-
-$(function () {
-    $('#bitRate').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-        },
-        title: {
-            text: 'bitRate'
-        },
-        tooltip: {
-    	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    color: '#000000',
-                    connectorColor: '#000000',
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'bitRate',
-            data: [
-              ['S7',   {$s7}],
-              ['S6',   {$s6}],
-              ['S5',   {$s5}],
-              ['S3',   {$s3}],
-            ['S2',       {$s2}],
-                {
-                    name: 'S1',
-                          y: {$s1},
-                    sliced: true,
-                    selected: true
-                },
-                ['S4',    {$s4}]
-               
-            ]
-        }]
-    });
-});
-
-		</script>
-    <script type="text/javascript">
-$(function () {
-        $('#typeOfVideo').highcharts({
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: 'type of video'
-            },
-            subtitle: {
-                text: 'Source: BesTV'
-            },
-            xAxis: {
-categories: [{$videoType}],
-                title: {
-                    text: null
-                }
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'percentage',
-                    align: 'high'
-                },
-                labels: {
-                    overflow: 'justify'
-                }
-            },
-            tooltip: {
-                valueSuffix: ' millions'
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 100,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: '#FFFFFF',
-                shadow: true
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'percentage of types',
-                      data:[{$videoNum}]
-            }]
-        });
-    });
-
-  </script>   
-
-
-
-
-    <script type="text/javascript">
-
-$(function () {
-        $('#dashTransTime').highcharts({
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: 'dash Translation Time'
-            },
-            subtitle: {
-                text: 'Source: BesTV'
-            },
-            xAxis: {
-categories: [{$switchTime}],
-                title: {
-                    text: null
-                }
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'percentage',
-                    align: 'high'
-                },
-                labels: {
-                    overflow: 'justify'
-                }
-            },
-            tooltip: {
-                valueSuffix: ' millions'
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 100,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: '#FFFFFF',
-                shadow: true
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'percentage of types',
-                      data: [{$switchNum}]
-            }]
-        });
-    });
-
-  </script>   
-
-
-
-  <script type="text/javascript">
-
-  $(function () {
-    $('#userISP').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: 0,
-            plotShadow: false
-        },
-        title: {
-            text: 'userISP',
-            align: 'center',
-            verticalAlign: 'middle',
-            y: 50
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                dataLabels: {
-                    enabled: true,
-                    distance: -50,
-                    style: {
-                        fontWeight: 'bold',
-                        color: 'white',
-                        textShadow: '0px 1px 2px black'
-                    }
-                },
-                startAngle: -90,
-                endAngle: 90,
-                center: ['50%', '75%']
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'userISP',
-            innerSize: '50%',
-            data: [
-           
-        {$userISP}
- ]
-        }]
-    });
-});
-
-
-  </script>
-
-
-  <script type="text/javascript">
-
-  $(function () {
-    $('#serverISP').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: 0,
-            plotShadow: false
-        },
-        title: {
-            text: 'serverISP',
-            align: 'center',
-            verticalAlign: 'middle',
-            y: 50
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                dataLabels: {
-                    enabled: true,
-                    distance: -50,
-                    style: {
-                        fontWeight: 'bold',
-                        color: 'white',
-                        textShadow: '0px 1px 2px black'
-                    }
-                },
-                startAngle: -90,
-                endAngle: 90,
-                center: ['50%', '75%']
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'serverISP',
-            innerSize: '50%',
-            data: [
-          {$serverISP}           
-
-
- ]
-        }]
-    });
-});
-
-
-  </script>
-
-	
 
 
 </head>
@@ -523,10 +765,10 @@ categories: [{$switchTime}],
 
 
 		
-		<script src="hsjs/highstock.js"></script>
-<script src="hsjs/modules/exporting.js"></script>
-<script src="hcjs/highcharts.js"></script>
-<script src="hcjs/modules/exporting.js"></script>
+		<script src="../../hsjs/highstock.js"></script>
+<script src="../../hsjs/modules/exporting.js"></script>
+<script src="../../hcjs/highcharts.js"></script>
+<script src="../../hcjs/modules/exporting.js"></script>
 
 
 

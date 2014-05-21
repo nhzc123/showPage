@@ -17,458 +17,12 @@
 
 
 <script type="text/javascript">
-//以“@#￥”为分割点，用result变量储存选择的变量
-result ="";
-selectResult ="<?php echo $reResult; ?>";
-userResult ="<?php echo $reUserResult; ?>";
-serverResult ="<?php echo $reServerResult; ?>";
-
-//boo 来判断是否第一次选择 0为第一次进入 1为第二次
-boo = 1;
-//selectVector 传递选择了什么变量
-//selectVector =<?php echo $selectVector; ?>;
-
-reResult ="<?php echo $reResult; ?>";
-reUserResult ="<?php echo $reUserResult; ?>";
-reServerResult ="<?php echo $reServerResult; ?>";
-
+selectResult ="";
+userResult ="";
+serverResult ="";
 
 </script>
-
-
-
-
-
-    <script type="text/javascript">
-    
-    
-      $(document).ready(function(){
-       
-
-
-   seriesOptions = [],
-    yAxisOptions = [],
-    seriesCounter = 0,
-    names = ['0~20%','20~40%','40~60%','60~80%','80~100%'],
-    colors = Highcharts.getOptions().colors;
-
-      $.ajax({
-            type : "get",
-            url : "service/context/userEngagement.php?callback=?&type=2",
-            dataType : "jsonp",
-            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
-            success : function(data){
-
-      seriesOptions[0] = {
-        name: "totalNumber",
-        data: data
-      };
-     
-    
-     $.each(names, function(i, name) {
-
-      nu=i+3;
-    $.getJSON('service/context/userEngagement.php?callback=?&type='+nu, function(data) {
-
-      seriesOptions[i+1] = {
-        name: name,
-        data: data
-      };
-
-      // As we're loading the data asynchronously, we don't know what order it will arrive. So
-      // we keep a counter and create the chart when all the data is loaded.
-      seriesCounter++;
-
-      if (seriesCounter == names.length) {
-        createChart();
-      }
-    });
-  }); 
- 
-
-            }});
-//开始查询其他三条曲线，已经由第一个ajax请求完毕
-
-
-
-function createChart(){
-
-
-
-    $('#engagement').highcharts('StockChart', {
-        chart: {
-        },
-
-        rangeSelector: {
-        inputEnabled: $('#engagement').width() > 480,
-            selected: 4
-        },
-
-        title:{
-          text:'engagement',
-      },
-
-        yAxis: {
-          labels: {
-            formatter: function() {
-              return this.value ;
-            }
-          },
-          plotLines: [{
-            value: 0,
-            width: 2,
-            color: 'silver'
-          }]
-        },
-        
-        
-        tooltip: {
-          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> <br/>',
-          valueDecimals: 2
-        },
-        
-        series: seriesOptions
-
-    });
-
-
-
-}
-
-
-
-      });
-    
-    
-    </script>
-		<script type="text/javascript">
-      
-$(function () {
-    $('#device').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-        },
-        title: {
-            text: 'device '
-        },
-        tooltip: {
-    	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    color: '#000000',
-                    connectorColor: '#000000',
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'Users Rate',
-            data: [
-            <?php echo $device; ?>
-              
-              ]
-        }]
-    });
-});
-    
-		</script>
 		
-			<script type="text/javascript">
-
-$(function () {
-    $('#bitRate').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-        },
-        title: {
-            text: 'bitRate'
-        },
-        tooltip: {
-    	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    color: '#000000',
-                    connectorColor: '#000000',
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'bitRate',
-            data: [
-              ['S7',   <?php echo $s7; ?>],
-              ['S6',   <?php echo $s6; ?>],
-              ['S5',   <?php echo $s5; ?>],
-              ['S3',   <?php echo $s3; ?>],
-            ['S2',       <?php echo $s2; ?>],
-                {
-                    name: 'S1',
-                          y: <?php echo $s1; ?>,
-                    sliced: true,
-                    selected: true
-                },
-                ['S4',    <?php echo $s4; ?>]
-               
-            ]
-        }]
-    });
-});
-
-		</script>
-    <script type="text/javascript">
-$(function () {
-        $('#typeOfVideo').highcharts({
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: 'type of video'
-            },
-            subtitle: {
-                text: 'Source: BesTV'
-            },
-            xAxis: {
-categories: [<?php echo $videoType; ?>],
-                title: {
-                    text: null
-                }
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'percentage',
-                    align: 'high'
-                },
-                labels: {
-                    overflow: 'justify'
-                }
-            },
-            tooltip: {
-                valueSuffix: ' millions'
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 100,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: '#FFFFFF',
-                shadow: true
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'percentage of types',
-                      data:[<?php echo $videoNum; ?>]
-            }]
-        });
-    });
-
-  </script>   
-
-
-
-
-    <script type="text/javascript">
-
-$(function () {
-        $('#dashTransTime').highcharts({
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: 'dash Translation Time'
-            },
-            subtitle: {
-                text: 'Source: BesTV'
-            },
-            xAxis: {
-categories: [<?php echo $switchTime; ?>],
-                title: {
-                    text: null
-                }
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'percentage',
-                    align: 'high'
-                },
-                labels: {
-                    overflow: 'justify'
-                }
-            },
-            tooltip: {
-                valueSuffix: ' millions'
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                x: -40,
-                y: 100,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: '#FFFFFF',
-                shadow: true
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'percentage of types',
-                      data: [<?php echo $switchNum; ?>]
-            }]
-        });
-    });
-
-  </script>   
-
-
-
-  <script type="text/javascript">
-
-  $(function () {
-    $('#userISP').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: 0,
-            plotShadow: false
-        },
-        title: {
-            text: 'userISP',
-            align: 'center',
-            verticalAlign: 'middle',
-            y: 50
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                dataLabels: {
-                    enabled: true,
-                    distance: -50,
-                    style: {
-                        fontWeight: 'bold',
-                        color: 'white',
-                        textShadow: '0px 1px 2px black'
-                    }
-                },
-                startAngle: -90,
-                endAngle: 90,
-                center: ['50%', '75%']
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'userISP',
-            innerSize: '50%',
-            data: [
-           
-        <?php echo $userISP; ?>
- ]
-        }]
-    });
-});
-
-
-  </script>
-
-
-  <script type="text/javascript">
-
-  $(function () {
-    $('#serverISP').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: 0,
-            plotShadow: false
-        },
-        title: {
-            text: 'serverISP',
-            align: 'center',
-            verticalAlign: 'middle',
-            y: 50
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                dataLabels: {
-                    enabled: true,
-                    distance: -50,
-                    style: {
-                        fontWeight: 'bold',
-                        color: 'white',
-                        textShadow: '0px 1px 2px black'
-                    }
-                },
-                startAngle: -90,
-                endAngle: 90,
-                center: ['50%', '75%']
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'serverISP',
-            innerSize: '50%',
-            data: [
-          <?php echo $serverISP; ?>           
-
-
- ]
-        }]
-    });
-});
-
-
-  </script>
-
-
-
-
-
-
-
-
-
-
-
 
 
 	
@@ -790,14 +344,12 @@ document.getElementById('userCount').innerHTML = "";
 </br>
 
 <div style=" text-align:center;">
-  <form action="context.php" method="post" class="formit" onsubmit="return check()">
     <input id ="selectResult" name="selectResult"  style="display:none"></input>
     <input id ="userResult" name="userResult"  style="display:none"></input>
     <input id = "serverResult" name="serverResult"  style = "display:none"></input>
 
 
-    <input type="submit" class="button_submit" value ="submit"/>
-    </form>
+    <input type="submit" class="button_snapshot" onclick="getOK()" value ="submit"/>
     </br>
     <div>
       <input type="submit" class="button_snapshot" onclick="snapshot()" value="snapshot"></input>
@@ -861,6 +413,15 @@ document.getElementById('userCount').innerHTML = "";
 
 
 
+  <div id="loading"
+      style="position: fixed !important; position: absolute; display: none; top: 0; left: 0; height: 100%; width: 100%; z-index: 999; background: #000 url(http://interjc.googlecode.com/svn/trunk/waterfall/img/load.gif) no-repeat center center; opacity: 0.6; filter: alpha(opacity =                                                                                                                         60); font-size: 14px; line-height: 20px;"
+      onclick="javascript:turnoff('loading')">
+      <p id="loading-one"
+        style="color: #fff; position: absolute; top: 50%; left: 50%; margin: 20px 0 0 -50px; padding: 3px 10px;"
+        onclick="javascript:turnoff('loading')">
+        正在执行操作..
+      </p>
+    </div>
 
 
 
@@ -869,44 +430,6 @@ document.getElementById('userCount').innerHTML = "";
 
 
 
-      <div style="width:118px;position:fixed;right:50px;top:280px; ">
-        <ul>
-
-          <li style="height:32px;">
-            <a style="text-decoration:none;font-size:16px; color:#C4C6C9" href="#" onclick="window.scrollTo(0,520);return false;">view numbers</a>
-          </li>
-
-
-          <li style="height:32px;">
-            <a style="text-decoration:none;font-size:16px; color:#C4C6C9" href="#" onclick="window.scrollTo(0,1020);return false;">video type</a>
-          </li>
-
-          <li style="height:32px;">
-            <a style="text-decoration:none;font-size:16px; color:#C4C6C9" href="#" onclick="window.scrollTo(0,1020);return false;">translation</a>
-          </li>
-
-          <li style="height:32px;">
-            <a style="text-decoration:none;font-size:16px; color:#C4C6C9" href="#" onclick="window.scrollTo(0,1520);return false;">bitRate</a>
-          </li>
-
-          <li style="height:32px;">
-            <a style="text-decoration:none;font-size:16px; color:#C4C6C9" href="#" onclick="window.scrollTo(0,1520);return false;">device</a>
-          </li>
-
-
-          <li style="height:32px;">
-            <a style="text-decoration:none;font-size:16px; color:#C4C6C9" href="#" onclick="window.scrollTo(0,2020);return false;">userISP</a>
-          </li>
-
-          <li style="height:32px;">
-            <a style="text-decoration:none;font-size:16px; color:#C4C6C9" href="#" onclick="window.scrollTo(0,2020);return false;">serverISP</a>
-          </li>
-
-
-      </ul>
-
-      <div   onclick="window.scrollTo(0,0);return false;"><a href="#"  title="back to top"><img style="width:40px;height:40px"  src ="./img/jiantou2.jpg"></img></a></div>    
-  </div>    
 		
 	  
 	
@@ -930,26 +453,6 @@ document.getElementById('userCount').innerHTML = "";
          
 
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1011,57 +514,772 @@ document.getElementById('userCount').innerHTML = "";
 
 <script type="text/javascript">
 
-  $(document).ready(function(){
-  var words = reResult.split(" ");
-
-if( words.length > 1)
-{
-
-var count = 0;
-        //为filter下的所有a标签修改已经选择的状态
-        $("#filter dl").each(function () {
-
-
-          $(this).find("a").each(function(){
-              if(words[count] == $(this).html())
-              {
-                    $(this).parents("dl").children("dd").each(function () {
-                      $('a',this).removeClass("seled");
-                     });
-
-                     $(this).attr("class", "seled");
-               }
-
-
-            });
-
-            count=count+1; 
-        });
-}
-});
-
-  $("#userPlaces").html(reUserResult);
-  $("#serverPlaces").html(reServerResult);
-
-  function check()
-{
-  $("#selectResult").val(selectResult);
-    $("#userResult").val(userResult);
-   $("#serverResult").val(serverResult);
-
-   //alert($("#selectResult").val()); 
-
-    return true;
-
-
-}
 
 
 </script>
 <script>
   function snapshot(){
 
-    window.open("contextSnapshot.php");
+    window.open("static/template/contextSnapshot.htm");
+  }
+
+</script>
+
+<script>
+
+  function getOK(){
+
+    document.getElementById("loading").style.display="inline"; 
+    if(selectResult=="")
+        selectResult="all all all all all all";
+
+    if(userResult=="")
+        userResult="all";
+
+    if(serverResult=="")
+        serverResult="all";
+
+
+
+//typeOfVideo------------
+typeOfVideoData="";
+
+      $.ajax({
+            type : "post",
+            url : "service/context/typeOfVideo.php?callback=?",
+            data:{
+
+              selectResult:selectResult,
+              userResult:userResult,
+              serverResult:serverResult,
+            },
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+              typeOfVideoData=data;
+        require.config({
+            paths:{ 
+                'echarts' : './echartjs/echarts',
+                'echarts/chart/bar' : './echartjs/echarts-map'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('typeOfVideo')); 
+                     
+          
+option = {
+    title : {
+        text: 'typeOfVideo',
+        subtext: 'BesTV'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['typeOfVideo']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'value',
+            boundaryGap : [0, 0.01]
+        }
+    ],
+    yAxis : [
+        {
+            type : 'category',
+            data :data.videoType
+        }
+    ],
+    series : [
+        {
+            name:'typeOfVideo',
+            type:'bar',
+            data:data.videoNum
+        },
+       
+    ]
+};
+                    
+
+
+
+
+
+
+
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+
+
+
+
+
+
+
+
+            }
+          });
+//----------------------
+
+//dashTransTime------------
+dashTransTimeData="";
+
+      $.ajax({
+            type : "post",
+            url : "service/context/dashTransTime.php?callback=?",
+            data:{
+
+              selectResult:selectResult,
+              userResult:userResult,
+              serverResult:serverResult,
+            },
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+              dashTransTimeData=data;
+        require.config({
+            paths:{ 
+                'echarts' : './echartjs/echarts',
+                'echarts/chart/bar' : './echartjs/echarts-map'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('dashTransTime')); 
+                     
+          
+option = {
+    title : {
+        text: 'dashTransTime',
+        subtext: 'BesTV'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['dashTransTime']
+    },
+    color:[ '#87cefa'],
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'value',
+            boundaryGap : [0, 0.01]
+        }
+    ],
+    yAxis : [
+        {
+            type : 'category',
+            data :data.switchTime
+        }
+    ],
+    series : [
+        {
+            name:'dashTransTime',
+            type:'bar',
+            data:data.switchNum
+        },
+       
+    ]
+};
+                    
+
+
+
+
+
+
+
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+
+
+
+
+
+
+
+
+            }
+          });
+//----------------------
+
+
+//bitRate------------
+bitRateData="";
+
+      $.ajax({
+            type : "post",
+            url : "service/context/bitRate.php?callback=?",
+            data:{
+
+              selectResult:selectResult,
+              userResult:userResult,
+              serverResult:serverResult,
+            },
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+              bitRateData=data;
+        require.config({
+            paths:{ 
+                'echarts' : './echartjs/echarts',
+                'echarts/chart/bar' : './echartjs/echarts-map'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('bitRate')); 
+                     
+          
+option = {
+    title : {
+        text: 'bitRate',
+        subtext: 'BesTV',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+        data:['s1','s2','s3','s4','s5','s6','s7']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    series : [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius : '55%',
+            center: ['50%', 225],
+                data:bitRateData.bitRateArray
+        }
+    ]
+};
+                     
+
+
+
+
+
+
+
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+
+
+
+
+
+
+
+
+            }
+          });
+//----------------------
+
+
+//device------------
+deviceData="";
+
+      $.ajax({
+            type : "post",
+            url : "service/context/device.php?callback=?",
+            data:{
+
+              selectResult:selectResult,
+              userResult:userResult,
+              serverResult:serverResult,
+            },
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+              deviceData=data;
+        require.config({
+            paths:{ 
+                'echarts' : './echartjs/echarts',
+                'echarts/chart/bar' : './echartjs/echarts-map'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('device')); 
+                     
+          
+option = {
+    title : {
+        text: 'device',
+        subtext: 'BesTV',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+        data:deviceData.name
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    series : [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius : '55%',
+            center: ['50%', 225],
+            data:deviceData.deviceValue
+        }
+    ]
+};
+                     
+
+
+
+
+
+
+
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+
+
+
+
+
+
+
+
+            }
+          });
+//----------------------
+
+
+
+//userISP------------
+userISPData="";
+
+      $.ajax({
+            type : "post",
+            url : "service/context/userISP.php?callback=?",
+            data:{
+
+              selectResult:selectResult,
+              userResult:userResult,
+              serverResult:serverResult,
+            },
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+              userISPData=data;
+        require.config({
+            paths:{ 
+                'echarts' : './echartjs/echarts',
+                'echarts/chart/bar' : './echartjs/echarts-map'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('userISP')); 
+                     
+          
+option = {
+
+    title : {
+        text: 'userISP',
+        subtext: 'BesTV',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+        data:userISPData.name
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    series : [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius : ['50%', '70%'],
+            itemStyle : {
+                normal : {
+                    label : {
+                        show : false
+                    },
+                    labelLine : {
+                        show : false
+                    }
+                },
+                emphasis : {
+                    label : {
+                        show : true,
+                        position : 'center',
+                        textStyle : {
+                            fontSize : '30',
+                            fontWeight : 'bold'
+                        }
+                    }
+                }
+            },
+            data:userISPData.value
+        }
+    ]
+};
+                    
+
+
+
+
+
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+
+
+
+
+
+
+
+
+            }
+          });
+//----------------------
+
+
+
+
+//serverISP------------
+serverISPData="";
+
+      $.ajax({
+            type : "post",
+            url : "service/context/serverISP.php?callback=?",
+            data:{
+
+              selectResult:selectResult,
+              userResult:userResult,
+              serverResult:serverResult,
+            },
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+              serverISPData=data;
+        require.config({
+            paths:{ 
+                'echarts' : './echartjs/echarts',
+                'echarts/chart/bar' : './echartjs/echarts-map'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('serverISP')); 
+                     
+          
+option = {
+
+    title : {
+        text: 'serverISP',
+        subtext: 'BesTV',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+        data:serverISPData.name
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    series : [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius : ['50%', '70%'],
+            itemStyle : {
+                normal : {
+                    label : {
+                        show : false
+                    },
+                    labelLine : {
+                        show : false
+                    }
+                },
+                emphasis : {
+                    label : {
+                        show : true,
+                        position : 'center',
+                        textStyle : {
+                            fontSize : '30',
+                            fontWeight : 'bold'
+                        }
+                    }
+                }
+            },
+            data:serverISPData.value
+        }
+    ]
+};
+                    
+
+
+
+
+
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+
+
+
+
+
+
+
+
+            }
+          });
+//----------------------
+
+
+
+
+
+
+//engagement----------
+   seriesOptions = [],
+    yAxisOptions = [],
+    seriesCounter = 0,
+    names = ['0~20%','20~40%','40~60%','60~80%','80~100%'],
+    colors = Highcharts.getOptions().colors;
+
+
+
+
+
+//engagement----------
+   seriesOptions = [],
+    yAxisOptions = [],
+    seriesCounter = 0,
+    names = ['0~20%','20~40%','40~60%','60~80%','80~100%'],
+    colors = Highcharts.getOptions().colors;
+
+      $.ajax({
+            type : "post",
+            url : "service/context/userEngagement.php?callback=?&type=2",
+            data:{
+
+              selectResult:selectResult,
+              userResult:userResult,
+              serverResult:serverResult,
+            },
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+      seriesOptions[0] = {
+        name: "totalNumber",
+        data: data
+      };
+     
+    
+     $.each(names, function(i, name) {
+
+      nu=i+3;
+    $.getJSON('service/context/userEngagement.php?callback=?&type='+nu, function(data) {
+
+      seriesOptions[i+1] = {
+        name: name,
+        data: data
+      };
+
+      // As we're loading the data asynchronously, we don't know what order it will arrive. So
+      // we keep a counter and create the chart when all the data is loaded.
+      seriesCounter++;
+
+      if (seriesCounter == names.length) {
+        createChart();
+    document.getElementById("loading").style.display="none"; 
+      }
+    });
+  }); 
+ 
+
+            }});
+//开始查询其他三条曲线，已经由第一个ajax请求完毕
+
+
+
+function createChart(){
+
+
+
+    $('#engagement').highcharts('StockChart', {
+        chart: {
+        },
+
+        rangeSelector: {
+        inputEnabled: $('#engagement').width() > 480,
+            selected: 4
+        },
+
+        title:{
+          text:'engagement',
+      },
+
+        yAxis: {
+          labels: {
+            formatter: function() {
+              return this.value ;
+            }
+          },
+          plotLines: [{
+            value: 0,
+            width: 2,
+            color: 'silver'
+          }]
+        },
+        
+        
+        tooltip: {
+          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> <br/>',
+          valueDecimals: 2
+        },
+        
+        series: seriesOptions
+
+    });
+
+
+
+}
+//-----------------------
+
+
   }
 
 </script>

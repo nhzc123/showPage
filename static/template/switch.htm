@@ -20,6 +20,8 @@
 selectResult = "";
 userResult ="";
 serverResult="";
+scopeTop="";
+scopeEnd="";
 </script>
 
 	
@@ -281,10 +283,16 @@ document.getElementById('userCount').innerHTML = "";
             <dd><div><a>up</a></div></dd>
             <dd><div><a>down</a></div></dd>
           </dl>
-      </div>
-      </br>
-      </br>
+      <dl>
 
+        <dt>switchTimeScope:</dt>
+          <dd><div><input style="width:100px" value="0" id="scopeTop"type="text"> -</div></dd>
+          <dd><div><input style="width:100px" value="100" id="scopeEnd"type="text"></div></dd>(between 0~100%)
+        </dl>
+      </div>
+
+      </br>
+      </br>
       <div style="width:620px;height:auto;margin-left:auto;margin-right:auto;font-size:18px;">
       
 <a style="font-weight:bold;color:#333333;float:left;width:150px" href="javascript:void(0)" onclick="show('light')">user areas:</a>
@@ -485,6 +493,14 @@ document.getElementById('userCount').innerHTML = "";
 
     if(serverResult=="")
       serverResult="all";
+
+    scopeTop=$("#scopeTop").val();
+    scopeEnd=$("#scopeEnd").val();
+
+    if(scopeTop<0 || scopeTop>100 ||scopeTop<0 ||scopeEnd>100 ||scopeTop>scopeEnd){
+      alert("input is not allowed");
+      return ;
+    }
     //alert(serverResult);
 //    window.open("switchSnapshot.php");
 
@@ -501,6 +517,8 @@ document.getElementById('userCount').innerHTML = "";
               selectResult:selectResult,
               userResult:userResult,
               serverResult:serverResult,
+              scopeTop:scopeTop,
+              scopeEnd:scopeEnd
 
             },
             dataType : "jsonp",
@@ -510,7 +528,11 @@ document.getElementById('userCount').innerHTML = "";
         //alert(data);
       afterRemain=data;
 
-        
+    /*  if(Array.isArray(afterRemain))
+      alert("array");
+      else
+      alert("object");
+      */  
         require.config({
             paths:{ 
                 'echarts' : './echartjs/echarts',
@@ -599,6 +621,8 @@ document.getElementById('userCount').innerHTML = "";
               selectResult:selectResult,
               userResult:userResult,
               serverResult:serverResult,
+              scopeTop:scopeTop,
+              scopeEnd:scopeEnd
 
             },
             dataType : "jsonp",
@@ -708,6 +732,8 @@ document.getElementById('userCount').innerHTML = "";
               selectResult:selectResult,
               userResult:userResult,
               serverResult:serverResult,
+              scopeTop:scopeTop,
+              scopeEnd:scopeEnd
 
             },
             dataType : "jsonp",

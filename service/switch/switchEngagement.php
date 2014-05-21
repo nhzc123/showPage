@@ -24,6 +24,8 @@ switch ($type)
 $reResult = $_POST['selectResult'];
 $reUserResult = $_POST['userResult'];
 $reServerResult = $_POST['serverResult'];
+$scopeTop = $_POST['scopeTop'];
+$scopeEnd = $_POST['scopeEnd'];
 $uLo = explode(" ",$reUserResult);
 $sLo = explode(" ",$reServerResult);
 $reR = explode(" ",$reResult);
@@ -73,6 +75,10 @@ if ($reResult != null)
 		else
 			$condition .=" switchType = '".$reR[4]."'";
 	}
+		if($condition !="")
+			$condition .=" and switchPercent between ".$scopeTop." and ".$scopeEnd;
+		else
+			$condition .="switchPercent between ".$scopeTop." and ".$scopeEnd;
 
 //如果uLocation有参数
 	if($reUserResult!="all")
