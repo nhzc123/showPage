@@ -133,10 +133,8 @@ if($condition !="")
 
 //查询s1,s2,s3,s4,s5,s6,s7
 
-
 if($reR[2]=="s7" || $reR[2] =="all")
 {
-
 
   $sql = "select count(*) from summary where s7 != 0";
 
@@ -144,7 +142,7 @@ if($reR[2]=="s7" || $reR[2] =="all")
     $sql = $sql." and ".$conditionBitRate;
 
 
-  $re = mysql_query($sql,$conn);
+  $re = mysql_query($sql,$con);
   $s7="";
   while($row = mysql_fetch_row($re))
   {
@@ -166,7 +164,7 @@ if($reR[2]=="s6" || $reR[2] =="all")
     $sql = $sql." and ".$conditionBitRate;
 
 
-  $re = mysql_query($sql,$conn);
+  $re = mysql_query($sql,$con);
   $s6="";
   while($row = mysql_fetch_row($re))
   {
@@ -188,7 +186,7 @@ if($reR[2]=="s5" || $reR[2] =="all")
     $sql = $sql." and ".$conditionBitRate;
 
 
-  $re = mysql_query($sql,$conn);
+  $re = mysql_query($sql,$con);
   $s5="";
   while($row = mysql_fetch_row($re))
   {
@@ -208,7 +206,7 @@ if($reR[2] =="s4"|| $reR[2]=="all")
   if($conditionBitRate!="")
     $sql = $sql." and ".$conditionBitRate;
 
-  $re = mysql_query($sql,$conn);
+  $re = mysql_query($sql,$con);
 
   $s4="";
 
@@ -233,7 +231,7 @@ if($reR[2]=="s3" ||$reR[2]=="all")
     $sql = $sql." and ".$conditionBitRate;
 
 
-  $re = mysql_query($sql,$conn);
+  $re = mysql_query($sql,$con);
   $s3="";
   while($row = mysql_fetch_row($re))
   {
@@ -254,7 +252,7 @@ if($reR[2]=="s2" ||$reR[2]=="all")
     $sql = $sql." and ".$conditionBitRate;
 
 
-  $re = mysql_query($sql,$conn);
+  $re = mysql_query($sql,$con);
   $s2="";
   while($row = mysql_fetch_row($re))
   {
@@ -276,7 +274,7 @@ if($reR[2]=="s1" || $reR[2] =="all")
     $sql = $sql." and ".$conditionBitRate;
 
 
-  $re = mysql_query($sql,$conn);
+  $re = mysql_query($sql,$con);
   $s1="";
   while($row = mysql_fetch_row($re))
   {

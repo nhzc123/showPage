@@ -133,7 +133,7 @@ if($condition !="")
 
 //查询userISP
 $sql = "select sISP,count(*) from summary ".$condition." group by sISP";
-$re = mysql_query($sql,$conn);
+$re = mysql_query($sql,$con);
 $ispName=array();
 $value=array();
 $count=0;
