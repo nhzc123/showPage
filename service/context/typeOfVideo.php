@@ -16,7 +16,7 @@ $reUserResult = $_POST['userResult'];
 $reServerResult = $_POST['serverResult'];
 $uLo = explode(" ",$reUserResult);
 $sLo = explode(" ",$reServerResult);
-$reR = explode(" ",$reResult);
+$reR = explode(",",$reResult);
 
 $condition="";
 //echo $reResult;

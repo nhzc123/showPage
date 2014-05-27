@@ -63,6 +63,8 @@ function show(tag){
       if(tag =="light")
       {
             var myChart3 = ec.init(document.getElementById('userAreas'));
+
+                    myChart3.clear(); 
             myChart3.setOption({
                 title:{
                     text:'userAreas'
@@ -109,6 +111,8 @@ function show(tag){
         else if(tag == "light2")
       {
             var myChart2 = ec.init(document.getElementById('serverAreas'));
+
+                    myChart2.clear(); 
             myChart2.setOption({
 
                 title:{
@@ -241,9 +245,14 @@ document.getElementById('userCount').innerHTML = "";
             <dt>device:</dt>
             <dd><div><a>all</a></div></dd>
             <dd><div><a>iPad</a></div></dd>
+            <dd><div><a>Android Pad 7</a></div></dd>
+            <dd><div><a>Android Phone</a></div></dd>
             <dd><div><a>iPhone</a></div></dd>
-            <dd><div><a>PC</a></div></dd>
-            <dd><div><a>TV</a></div></dd>
+            <dd><div><a>Ctv</a></div></dd>
+            <dd><div><a>Ott Stb</a></div></dd>
+            <dd style="margin-left:150px"><div><a>PC</a></div></dd>
+            <dd><div><a>Tbd</a></div></dd>
+            <dd><div><a>TV Cloud</a></div></dd>
             <dd><div><a>other</a></div></dd>
         </dl>
        
@@ -499,7 +508,7 @@ document.getElementById('userCount').innerHTML = "";
       selectResult = "";
       result =""; 
         $("#filter a[class='seled']").each(function () {
-            result += $(this).html()+" ";
+            result += $(this).html()+",";
         });
         selectResult = result;
     }
@@ -531,7 +540,7 @@ document.getElementById('userCount').innerHTML = "";
 
     document.getElementById("loading").style.display="inline"; 
     if(selectResult=="")
-        selectResult="all all all all all all";
+        selectResult="all,all,all,all,all,all";
 
     if(userResult=="")
         userResult="all";
@@ -574,6 +583,7 @@ typeOfVideoData="";
             function(ec) {
                 // 基于准备好的dom，初始化echarts图表
                 var myChart = ec.init(document.getElementById('typeOfVideo')); 
+                    myChart.clear(); 
                      
           
 option = {
@@ -676,6 +686,7 @@ dashTransTimeData="";
             function(ec) {
                 // 基于准备好的dom，初始化echarts图表
                 var myChart = ec.init(document.getElementById('dashTransTime')); 
+                    myChart.clear(); 
                      
           
 option = {
@@ -780,6 +791,7 @@ bitRateData="";
             function(ec) {
                 // 基于准备好的dom，初始化echarts图表
                 var myChart = ec.init(document.getElementById('bitRate')); 
+                    myChart.clear(); 
                      
           
 option = {
@@ -875,7 +887,7 @@ deviceData="";
             function(ec) {
                 // 基于准备好的dom，初始化echarts图表
                 var myChart = ec.init(document.getElementById('device')); 
-                     
+                    myChart.clear(); 
           
 option = {
     title : {
@@ -971,6 +983,7 @@ userISPData="";
             function(ec) {
                 // 基于准备好的dom，初始化echarts图表
                 var myChart = ec.init(document.getElementById('userISP')); 
+                    myChart.clear(); 
                      
           
 option = {
@@ -1086,6 +1099,7 @@ serverISPData="";
             function(ec) {
                 // 基于准备好的dom，初始化echarts图表
                 var myChart = ec.init(document.getElementById('serverISP')); 
+                    myChart.clear(); 
                      
           
 option = {

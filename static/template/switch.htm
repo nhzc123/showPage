@@ -240,9 +240,14 @@ document.getElementById('userCount').innerHTML = "";
             <dt>device:</dt>
             <dd><div><a>all</a></div></dd>
             <dd><div><a>iPad</a></div></dd>
+            <dd><div><a>Android Pad 7</a></div></dd>
+            <dd><div><a>Android Phone</a></div></dd>
             <dd><div><a>iPhone</a></div></dd>
-            <dd><div><a>PC</a></div></dd>
-            <dd><div><a>TV</a></div></dd>
+            <dd><div><a>Ctv</a></div></dd>
+            <dd><div><a>Ott Stb</a></div></dd>
+            <dd style="margin-left:150px"><div><a>PC</a></div></dd>
+            <dd><div><a>Tbd</a></div></dd>
+            <dd><div><a>TV Cloud</a></div></dd>
             <dd><div><a>other</a></div></dd>
         </dl>
        
@@ -461,7 +466,7 @@ document.getElementById('userCount').innerHTML = "";
 
       result =""; 
         $("#filter a[class='seled']").each(function () {
-            result += $(this).html()+" ";
+            result += $(this).html()+",";
         });
         selectResult = result;
     }
@@ -486,7 +491,7 @@ document.getElementById('userCount').innerHTML = "";
   function getOK(){
 
     if(selectResult=="")
-      selectResult="all all all all all";
+      selectResult="all,all,all,all,all";
 
     if(userResult=="")
       userResult="all";

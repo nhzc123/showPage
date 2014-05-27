@@ -28,7 +28,7 @@ $scopeTop = $_POST['scopeTop'];
 $scopeEnd = $_POST['scopeEnd'];
 $uLo = explode(" ",$reUserResult);
 $sLo = explode(" ",$reServerResult);
-$reR = explode(" ",$reResult);
+$reR = explode(",",$reResult);
 
 $condition="";
 
