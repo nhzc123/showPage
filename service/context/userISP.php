@@ -23,7 +23,7 @@ $condition="";
 //echo $reResult;
 
 
-if($type!=NULL){
+if($type ==2){
 
       $callback=$_GET['callback'];
 	  $result=$_SESSION['userISPContext'];
@@ -134,8 +134,8 @@ if($condition !="")
 //查询userISP
 $sql = "select uISP,count(*) from summary ".$condition." group by uISP";
 $re = mysql_query($sql,$con);
-$ispName=[];
-$value=[];
+$ispName=array();
+$value=array();
 $count=0;
 
 while($row = mysql_fetch_row($re))

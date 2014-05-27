@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="reset.css" type="text/css">
     <link rel="stylesheet" href="styl.css" type="text/css">
         
-	
+  
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript" src="jquery.min.js"></script>
 
 <script src="echartjs/esl.js"></script>
 <script language="javascript" type="text/javascript" src = "WdatePicker.js"></script>
@@ -23,7 +23,7 @@ areas ="";
 allData=="";
 </script>
 
-	
+  
 
 <script>
 
@@ -154,7 +154,7 @@ allData=="";
 
 
 
-</script>	
+</script> 
 
 </head>
 
@@ -198,7 +198,7 @@ allData=="";
         <div style="width:16%;float:left;margin:10px 5px 15px 20px">
 
 
-	</div>
+  </div>
 
 <div style="width:960px;margin:auto;">
       </br>
@@ -282,10 +282,10 @@ allData=="";
 
 
 
-		
-	  
-	
-	
+    
+    
+  
+  
    <!-- *********  Footer  ********** -->
     
     <hr class="cleanit">
@@ -328,8 +328,8 @@ allData=="";
 
 
 
-		
-		<script src="hsjs/highstock.js"></script>
+    
+    <script src="hsjs/highstock.js"></script>
 <script src="hsjs/modules/exporting.js"></script>
 <script src="hcjs/highcharts.js"></script>
 <script src="hcjs/modules/exporting.js"></script>

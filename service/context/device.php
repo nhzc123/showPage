@@ -24,7 +24,7 @@ $condition="";
 
 
 
-if($type!=NULL){
+if($type ==2){
 
       $callback=$_GET['callback'];
 	  $result=$_SESSION['deviceContext'];
@@ -136,7 +136,7 @@ if($condition !="")
 $sql ="select device,count(*) from summary ".$condition."  group by device";
 
 $re = mysql_query($sql,$con);
-$deviceName =[];
+$deviceName =array();
 $count=0;
 while($row = mysql_fetch_row($re))
 {

@@ -126,8 +126,8 @@ if($condition !="")
 //查询dashTime种类
 $sql ="select switchingTime,count(*) from summary " .$condition."  group by switchingTime order by switchingTime limit 0,7 ";
 $re = mysql_query($sql,$con);
-$switchTime =[];
-$switchNum =[];
+$switchTime =array();
+$switchNum =array();
 $count=0;
 while($row = mysql_fetch_row($re))
 {

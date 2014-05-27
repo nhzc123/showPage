@@ -1,0 +1,4 @@
+<?php
+$deviceName=[];
+echo "haha";
+?>

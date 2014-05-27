@@ -21,7 +21,7 @@ $type=$_POST['type'];
 $condition="";
 //echo $reResult;
 
-if($type!=NULL){
+if($type ==2){
 
       $callback=$_GET['callback'];
 	  $result=$_SESSION['bitRateContext'];
@@ -144,7 +144,7 @@ if($reR[2]=="s7" || $reR[2] =="all")
     $sql = $sql." and ".$conditionBitRate;
 
 
-  $re = mysql_query($sql,$con);
+  $re = mysql_query($sql,$conn);
   $s7="";
   while($row = mysql_fetch_row($re))
   {
@@ -166,7 +166,7 @@ if($reR[2]=="s6" || $reR[2] =="all")
     $sql = $sql." and ".$conditionBitRate;
 
 
-  $re = mysql_query($sql,$con);
+  $re = mysql_query($sql,$conn);
   $s6="";
   while($row = mysql_fetch_row($re))
   {
@@ -188,7 +188,7 @@ if($reR[2]=="s5" || $reR[2] =="all")
     $sql = $sql." and ".$conditionBitRate;
 
 
-  $re = mysql_query($sql,$con);
+  $re = mysql_query($sql,$conn);
   $s5="";
   while($row = mysql_fetch_row($re))
   {
@@ -208,7 +208,7 @@ if($reR[2] =="s4"|| $reR[2]=="all")
   if($conditionBitRate!="")
     $sql = $sql." and ".$conditionBitRate;
 
-  $re = mysql_query($sql,$con);
+  $re = mysql_query($sql,$conn);
 
   $s4="";
 
@@ -233,7 +233,7 @@ if($reR[2]=="s3" ||$reR[2]=="all")
     $sql = $sql." and ".$conditionBitRate;
 
 
-  $re = mysql_query($sql,$con);
+  $re = mysql_query($sql,$conn);
   $s3="";
   while($row = mysql_fetch_row($re))
   {
@@ -254,7 +254,7 @@ if($reR[2]=="s2" ||$reR[2]=="all")
     $sql = $sql." and ".$conditionBitRate;
 
 
-  $re = mysql_query($sql,$con);
+  $re = mysql_query($sql,$conn);
   $s2="";
   while($row = mysql_fetch_row($re))
   {
@@ -276,7 +276,7 @@ if($reR[2]=="s1" || $reR[2] =="all")
     $sql = $sql." and ".$conditionBitRate;
 
 
-  $re = mysql_query($sql,$con);
+  $re = mysql_query($sql,$conn);
   $s1="";
   while($row = mysql_fetch_row($re))
   {
@@ -289,7 +289,7 @@ else
 }
 //-----------------------
 
-$bitRateArray=[];
+$bitRateArray=array();
 $count=0;
 $tem=array("value"=>$s1,"name"=>"s1");
 $bitRateArray[$count++]=$tem;

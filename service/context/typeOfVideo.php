@@ -127,8 +127,8 @@ if($condition !="")
 $sql ="select videoType,count(*) from summary ".$condition."  group by videoType";
 
 $re = mysql_query($sql,$con);
-$videoType =[];
-$videoNum =[];
+$videoType =array();
+$videoNum =array();
 $count =0;
 while($row = mysql_fetch_row($re))
 {

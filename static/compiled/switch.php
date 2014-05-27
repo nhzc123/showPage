@@ -528,11 +528,11 @@ document.getElementById('userCount').innerHTML = "";
         //alert(data);
       afterRemain=data;
 
-      if(Array.isArray(afterRemain))
+    /*  if(Array.isArray(afterRemain))
       alert("array");
       else
       alert("object");
-        
+      */  
         require.config({
             paths:{ 
                 'echarts' : './echartjs/echarts',
