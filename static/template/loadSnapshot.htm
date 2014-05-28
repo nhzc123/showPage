@@ -13,7 +13,7 @@
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="../../jquery.min.js"></script>
 
-<script src="../../echartjs/esl.js"></script>
+<script src="../../asset/js/esl/esl.js"></script>
 
 </head>
 
@@ -22,6 +22,8 @@
 <div style="width:960px;margin:auto;">
 
       
+      <div id="main2" style="height:500px;mid-width:310px">
+        </div>
       <div id="main" style="height:700px;mid-width:310px">
         </div>
 
@@ -99,7 +101,209 @@ $(document).ready(function (){
             },  
         series: window.opener.seriesOptions
     });
+    //---------------------------------------
 
+
+      $.ajax({
+            type : "post",
+            url : "../../service/load/userDistribution.php?callback=?",
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+            distributionData=data;
+option = {
+    backgroundColor: '#1b1b1b',
+    color: ['gold','aqua','lime'],
+    title : {
+        text: 'user distribution via selected CDN',
+        subtext:'source:BesTV',
+        x:'center',
+        textStyle : {
+            color: '#fff'
+        }
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: function(v) {
+            return v[1].replace(':', ' > ');
+        }
+    },
+    toolbox: {
+        show : true,
+        orient : 'vertical',
+        x: 'right',
+        y: 'center',
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    dataRange: {
+        min : 0,
+        max : distributionData.MAXSIZE,
+        calculable : true,
+        color: ['red','orange','yellow','lightgreen'],
+        textStyle:{
+            color:'#fff'
+        }
+    },
+    series : [
+        {
+            name: '全国',
+            type: 'map',
+            roam: true,
+            hoverable: false,
+            mapType: 'china',
+            itemStyle:{
+                normal:{
+                    borderColor:'rgba(100,149,237,1)',
+                    borderWidth:0.5,
+                    areaStyle:{
+                        color: '#1b1b1b'
+                    }
+                }
+            },
+            data:[],
+            markLine : {
+                smooth:true,
+                symbol: ['none', 'circle'],  
+                symbolSize : 1,
+                itemStyle : {
+                    normal: {
+                        color:'#fff',
+                        borderWidth:1,
+                        borderColor:'rgba(30,144,255,0.5)'
+                    }
+                },
+                data : distributionData.distribution
+                ,
+            },
+            geoCoord: {
+             '北京':[116.4666667,39.9],
+'上海':[121.4833333,31.23333333],
+'天津':[117.1833333,39.15],
+'重庆':[106.5333333,29.53333333],
+'黑龙江':[126.6833333,45.75],
+'吉林':[125.3166667,43.86666667],
+'辽宁':[123.4,41.83333333],
+'内蒙古':[111.8,40.81666667],
+'河北':[114.4666667,38.03333333],
+'山西':[112.5666667,37.86666667],
+'山东':[117,36.63333333],
+'河南':[113.7,34.8],
+'陕西':[108.9,34.26666667],
+'甘肃':[103.8166667,36.05],
+'宁夏':[106.2666667,38.33333333],
+'青海':[101.75,36.63333333],
+'新疆':[87.6,43.8],
+'安徽':[117.3,31.85],
+'江苏':[118.8333333,32.03333333],
+'浙江':[120.15,30.23333333],
+'湖南':[113,28.18333333],
+'江西':[115.8666667,28.68333333],
+'湖北':[114.35,30.61666667],
+'四川':[104.0833333,30.65],
+'贵州':[106.7,26.58333333],
+'福建':[119.3,26.08333333],
+'台湾':[121.5166667,25.05],
+'广东':[113.25,23.13333333],
+'海南':[110.3333333,20.03333333],
+'广西':[108.3333333,22.8],
+'云南':[102.6833333,25],
+'西藏':[91.16666667,29.66666667],
+'香港':[114.1666667,22.3],
+'澳门':[113.5,22.2]
+ 
+            }
+        },
+        {
+            name: 'Top10',
+            type: 'map',
+            mapType: 'china',
+            data:[],
+            markLine : {
+                smooth:true,
+                effect : {
+                    show: true,
+                    size: 3,
+                    period:30,
+                    shadowColor: 'yellow'
+                },
+                itemStyle : {
+                    normal: {
+                        borderWidth:1
+                    }
+                },
+                data : distributionData.top10Sum,
+                 /*    [
+                    [{name:'上海'},{name:'北京',value:95}],
+                    ]
+                  */
+                
+            },
+            markPoint : {
+                symbol:'emptyCircle',
+                symbolSize : function(v){
+                    return 10 + v/10000
+                },
+                effect : {
+                    show: true,
+                    shadowBlur : 0
+                },
+                itemStyle:{
+                    normal:{
+                        label:{show:false}
+                    }
+                },
+                data : distributionData.top10Detail,
+                 /*     [
+                         {name:'北京',value:95},
+                      ]
+                  */
+            }
+        },
+    ]
+};
+
+        //------------------------------
+    var fileLocation = '../../www/js/echarts-map';
+    require.config({
+        paths:{ 
+            echarts: fileLocation,
+            'echarts/chart/line': fileLocation,
+            'echarts/chart/bar': fileLocation,
+            'echarts/chart/scatter': fileLocation,
+            'echarts/chart/k': fileLocation,
+            'echarts/chart/pie': fileLocation,
+            'echarts/chart/radar': fileLocation,
+            'echarts/chart/map': fileLocation,
+            'echarts/chart/chord': fileLocation,
+            'echarts/chart/force': fileLocation
+        }
+    });
+
+// 按需加载
+require(
+    [
+        'echarts',
+        'echarts/chart/line',
+        'echarts/chart/bar',
+        'echarts/chart/scatter',
+        'echarts/chart/k',
+        'echarts/chart/pie',
+        'echarts/chart/radar',
+        'echarts/chart/force',
+        'echarts/chart/chord',
+        'echarts/chart/map' 
+    ],
+    function(ec){
+      var myChart4 = ec.init(document.getElementById("main2"));
+      myChart4.setOption(option,true);
+    });
+
+    }});
 
 });
 
