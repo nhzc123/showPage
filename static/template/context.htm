@@ -20,7 +20,47 @@
 selectResult ="";
 userResult ="";
 serverResult ="";
+myChart1="";
+myChart2="";
+myChart3="";
+myChart5="";
+myChart4="";
+myChart6="";
 
+
+$(document).ready(function(){ 
+   
+
+        require.config({
+            paths:{ 
+                'echarts' : './echartjs/echarts',
+                'echarts/chart/bar' : './echartjs/echarts-map'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                 myChart1 = ec.init(document.getElementById('typeOfVideo')); 
+
+                myChart2 = ec.init(document.getElementById('dashTransTime')); 
+
+                 myChart3 = ec.init(document.getElementById('bitRate')); 
+
+                 myChart4 = ec.init(document.getElementById('device')); 
+
+
+                 myChart5 = ec.init(document.getElementById('userISP')); 
+
+                 myChart6 = ec.init(document.getElementById('serverISP')); 
+                  });                     
+
+});
 </script>
 		
 
@@ -62,10 +102,10 @@ function show(tag){
 
       if(tag =="light")
       {
-            var myChart3 = ec.init(document.getElementById('userAreas'));
+            var myChartt = ec.init(document.getElementById('userAreas'));
 
-                    myChart3.clear(); 
-            myChart3.setOption({
+                    myChartt.clear(); 
+            myChartt.setOption({
                 title:{
                     text:'userAreas'
 
@@ -94,7 +134,7 @@ function show(tag){
             });
             
             var ecConfig = require('echarts/config');
-            myChart3.on(ecConfig.EVENT.MAP_SELECTED, function(param){
+            myChartt.on(ecConfig.EVENT.MAP_SELECTED, function(param){
                 var selected = param.selected;
                 var str = ' ';
                for (var p in selected) {
@@ -110,10 +150,10 @@ function show(tag){
 
         else if(tag == "light2")
       {
-            var myChart2 = ec.init(document.getElementById('serverAreas'));
+            var myChartl = ec.init(document.getElementById('serverAreas'));
 
-                    myChart2.clear(); 
-            myChart2.setOption({
+                    myChartl.clear(); 
+            myChartl.setOption({
 
                 title:{
                     text:'serverAreas'
@@ -141,7 +181,7 @@ function show(tag){
 
             
             var ecConfig = require('echarts/config');
-            myChart2.on(ecConfig.EVENT.MAP_SELECTED, function(param){
+            myChartl.on(ecConfig.EVENT.MAP_SELECTED, function(param){
                 var selected = param.selected;
                 var str = ' ';
                for (var p in selected) {
@@ -422,15 +462,6 @@ document.getElementById('userCount').innerHTML = "";
 
 
 
-  <div id="loading"
-      style="position: fixed !important; position: absolute; display: none; top: 0; left: 0; height: 100%; width: 100%; z-index: 999; background: #000 url(http://interjc.googlecode.com/svn/trunk/waterfall/img/load.gif) no-repeat center center; opacity: 0.6; filter: alpha(opacity =                                                                                                                         60); font-size: 14px; line-height: 20px;"
-      onclick="javascript:turnoff('loading')">
-      <p id="loading-one"
-        style="color: #fff; position: absolute; top: 50%; left: 50%; margin: 20px 0 0 -50px; padding: 3px 10px;"
-        onclick="javascript:turnoff('loading')">
-        正在执行操作..
-      </p>
-    </div>
 
 
 
@@ -538,7 +569,6 @@ document.getElementById('userCount').innerHTML = "";
 
   function getOK(){
 
-    document.getElementById("loading").style.display="inline"; 
     if(selectResult=="")
         selectResult="all,all,all,all,all,all";
 
@@ -548,6 +578,25 @@ document.getElementById('userCount').innerHTML = "";
     if(serverResult=="")
         serverResult="all";
 
+
+                    myChart1.clear(); 
+                    myChart2.clear(); 
+                    myChart3.clear(); 
+                    myChart4.clear(); 
+                    myChart5.clear(); 
+                    myChart6.clear(); 
+                    myChart1.showLoading();
+                    myChart2.showLoading();
+                    myChart3.showLoading();
+                    myChart4.showLoading();
+                    myChart5.showLoading();
+                    myChart6.showLoading();
+    var chart = new Highcharts.Chart({chart: {
+
+              renderTo: 'engagement',
+                      defaultSeriesType: 'column'
+                      },});
+    chart.showLoading();
 
 
 //typeOfVideo------------
@@ -567,24 +616,6 @@ typeOfVideoData="";
             success : function(data){
 
               typeOfVideoData=data;
-        require.config({
-            paths:{ 
-                'echarts' : './echartjs/echarts',
-                'echarts/chart/bar' : './echartjs/echarts-map'
-            }
-        });
-        
-        // 使用
-        require(
-            [
-                'echarts',
-                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
-            ],
-            function(ec) {
-                // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('typeOfVideo')); 
-                    myChart.clear(); 
-                     
           
 option = {
     title : {
@@ -637,10 +668,9 @@ option = {
 
 
 
+                myChart1.hideLoading();
                 // 为echarts对象加载数据 
-                myChart.setOption(option); 
-            }
-        );
+                myChart1.setOption(option); 
 
 
 
@@ -670,24 +700,6 @@ dashTransTimeData="";
             success : function(data){
 
               dashTransTimeData=data;
-        require.config({
-            paths:{ 
-                'echarts' : './echartjs/echarts',
-                'echarts/chart/bar' : './echartjs/echarts-map'
-            }
-        });
-        
-        // 使用
-        require(
-            [
-                'echarts',
-                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
-            ],
-            function(ec) {
-                // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('dashTransTime')); 
-                    myChart.clear(); 
-                     
           
 option = {
     title : {
@@ -740,11 +752,9 @@ option = {
 
 
 
-
+                myChart2.hideLoading();
                 // 为echarts对象加载数据 
-                myChart.setOption(option); 
-            }
-        );
+                myChart2.setOption(option); 
 
 
 
@@ -775,23 +785,6 @@ bitRateData="";
             success : function(data){
 
               bitRateData=data;
-        require.config({
-            paths:{ 
-                'echarts' : './echartjs/echarts',
-                'echarts/chart/bar' : './echartjs/echarts-map'
-            }
-        });
-        
-        // 使用
-        require(
-            [
-                'echarts',
-                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
-            ],
-            function(ec) {
-                // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('bitRate')); 
-                    myChart.clear(); 
                      
           
 option = {
@@ -836,12 +829,9 @@ option = {
 
 
 
-
+                myChart3.hideLoading();
                 // 为echarts对象加载数据 
-                myChart.setOption(option); 
-            }
-        );
-
+                myChart3.setOption(option); 
 
 
 
@@ -871,23 +861,6 @@ deviceData="";
             success : function(data){
 
               deviceData=data;
-        require.config({
-            paths:{ 
-                'echarts' : './echartjs/echarts',
-                'echarts/chart/bar' : './echartjs/echarts-map'
-            }
-        });
-        
-        // 使用
-        require(
-            [
-                'echarts',
-                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
-            ],
-            function(ec) {
-                // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('device')); 
-                    myChart.clear(); 
           
 option = {
     title : {
@@ -931,11 +904,9 @@ option = {
 
 
 
-
+                myChart4.hideLoading();
                 // 为echarts对象加载数据 
-                myChart.setOption(option); 
-            }
-        );
+                myChart4.setOption(option); 
 
 
 
@@ -967,23 +938,6 @@ userISPData="";
             success : function(data){
 
               userISPData=data;
-        require.config({
-            paths:{ 
-                'echarts' : './echartjs/echarts',
-                'echarts/chart/bar' : './echartjs/echarts-map'
-            }
-        });
-        
-        // 使用
-        require(
-            [
-                'echarts',
-                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
-            ],
-            function(ec) {
-                // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('userISP')); 
-                    myChart.clear(); 
                      
           
 option = {
@@ -1046,11 +1000,9 @@ option = {
 
 
 
-
+                myChart5.hideLoading();
                 // 为echarts对象加载数据 
-                myChart.setOption(option); 
-            }
-        );
+                myChart5.setOption(option); 
 
 
 
@@ -1083,23 +1035,6 @@ serverISPData="";
             success : function(data){
 
               serverISPData=data;
-        require.config({
-            paths:{ 
-                'echarts' : './echartjs/echarts',
-                'echarts/chart/bar' : './echartjs/echarts-map'
-            }
-        });
-        
-        // 使用
-        require(
-            [
-                'echarts',
-                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
-            ],
-            function(ec) {
-                // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('serverISP')); 
-                    myChart.clear(); 
                      
           
 option = {
@@ -1162,11 +1097,9 @@ option = {
 
 
 
-
+                myChart6.hideLoading();
                 // 为echarts对象加载数据 
-                myChart.setOption(option); 
-            }
-        );
+                myChart6.setOption(option); 
 
 
 
@@ -1201,6 +1134,7 @@ option = {
     seriesCounter = 0,
     names = ['0~20%','20~40%','40~60%','60~80%','80~100%'],
     colors = Highcharts.getOptions().colors;
+
 
       $.ajax({
             type : "post",
@@ -1237,7 +1171,6 @@ option = {
 
       if (seriesCounter == names.length) {
         createChart();
-    document.getElementById("loading").style.display="none"; 
       }
     });
   }); 

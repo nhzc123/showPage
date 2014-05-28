@@ -16,25 +16,37 @@
 <script src="echartjs/esl.js"></script>
 
 <script type="text/javascript">
+  myChart2="";
+  myChart3="";
 
   $(document).ready(function(){
      
-      $.ajax({
-          type:"get",
-          dataType:'json',
-          url:"service/user/getUserTop10.php",
-          success:function(data){
-
-
-          $.each(data.dataList,function(i,item){
-
-           // $("#userTop10").append("<tr><td>"+item.userId+"</td><td>"+item.ct+"</td></tr>");
-            });
-          }
-          });
           
+        require.config({
+            paths:{ 
+
+              echarts:'./echartjs/echarts',
+            'echarts/chart/bar' : './echartjs/echarts-map',
+            'echarts/chart/line': './echartjs/echarts-map',
+            'echarts/chart/map' : './echartjs/echarts-map',
+            'echarts/config':     './echartjs/config'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+              'echarts',
+            'echarts/chart/bar',
+            'echarts/chart/line',
+            'echarts/chart/map'
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+             myChart2 = ec.init(document.getElementById('type'));
+             myChart3 = ec.init(document.getElementById('areas'));
      
-     
+             });
       });
 
 
@@ -207,15 +219,6 @@
 </div>
 
 
-  <div id="loading"
-      style="position: fixed !important; position: absolute; display: none; top: 0; left: 0; height: 100%; width: 100%; z-index: 999; background: #000 url(http://interjc.googlecode.com/svn/trunk/waterfall/img/load.gif) no-repeat center center; opacity: 0.6; filter: alpha(opacity =                                                                                                                         60); font-size: 14px; line-height: 20px;"
-      onclick="javascript:turnoff('loading')">
-      <p id="loading-one"
-        style="color: #fff; position: absolute; top: 50%; left: 50%; margin: 20px 0 0 -50px; padding: 3px 10px;"
-        onclick="javascript:turnoff('loading')">
-        正在执行操作..
-      </p>
-    </div>
 
 
     
@@ -259,7 +262,17 @@
     names = ['iPhone','other','pc','TV'],
     colors = Highcharts.getOptions().colors;
 
+    var chart = new Highcharts.Chart({chart: {
+              renderTo: 'main',
+                      defaultSeriesType: 'column'
+                      },});
+    chart.showLoading();
 
+
+    myChart2.clear();
+    myChart3.clear();
+    myChart2.showLoading();
+    myChart3.showLoading();
       $.ajax({
             type : "post",
             data:{
@@ -340,33 +353,15 @@ function createChart(){
  
 
 
-    document.getElementById("loading").style.display="inline"; 
 
       $.ajax({
             type : "get",
-            async:true,
             url : "service/user/typeEngagement.php?userId="+userId,
             dataType : "json",
             success : function(data){
 
             typeData = data;
 
-        require.config({
-            paths:{ 
-                'echarts' : './echartjs/echarts',
-                'echarts/chart/bar' : './echartjs/echart-map'
-            }
-        });
-        
-        // 使用
-        require(
-            [
-                'echarts',
-                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
-            ],
-            function(ec) {
-                // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('type')); 
        option = {
     tooltip : {
         trigger: 'axis',
@@ -443,12 +438,9 @@ function createChart(){
     ]
 };
 
-    document.getElementById("loading").style.display="none"; 
-                     
+                myChart2.hideLoading();
                 // 为echarts对象加载数据 
-                myChart.setOption(option); 
-            }
-        );
+                myChart2.setOption(option); 
     }});
 
 
@@ -458,7 +450,6 @@ function createChart(){
 
       $.ajax({
             type : "get",
-            async:true,
             url : "service/user/getUserArea.php?userId="+userId,
             dataType : "json",
             success : function(data){
@@ -468,31 +459,9 @@ function createChart(){
             smin=parseInt(data.smin);
 
 
-    require.config({
-        paths:{ 
-            echarts:'./echartjs/echarts',
-            'echarts/chart/bar' : './echartjs/echarts-map',
-            'echarts/chart/line': './echartjs/echarts-map',
-            'echarts/chart/map' : './echartjs/echarts-map',
-            'echarts/config':     './echartjs/config'
-        }
-    });
     
-    // Step:4 require echarts and use it in the callback.
-    // Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
-    require(
-        [
-            'echarts',
-            'echarts/chart/bar',
-            'echarts/chart/line',
-            'echarts/chart/map'
-        ],
-        function(ec) {
-            
-            // --- 地图 ---
 
-            var myChart3 = ec.init(document.getElementById('areas'));
-
+            myChart3.hideLoading();
 
             myChart3.setOption({
           title : {
@@ -536,7 +505,6 @@ function createChart(){
 
 
 
-            });
             }
           });
 

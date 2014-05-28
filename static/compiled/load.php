@@ -20,7 +20,8 @@
 <script >
 //全局变量
 areas ="";
-allData=="";
+allData="";
+myChart4="";
 </script>
 
   
@@ -163,6 +164,41 @@ require(
     );
 
 
+
+    var fileLocation = './www/js/echarts-map';
+    require.config({
+        paths:{ 
+            echarts: fileLocation,
+            'echarts/chart/line': fileLocation,
+            'echarts/chart/bar': fileLocation,
+            'echarts/chart/scatter': fileLocation,
+            'echarts/chart/k': fileLocation,
+            'echarts/chart/pie': fileLocation,
+            'echarts/chart/radar': fileLocation,
+            'echarts/chart/map': fileLocation,
+            'echarts/chart/chord': fileLocation,
+            'echarts/chart/force': fileLocation
+        }
+    });
+
+// 按需加载
+require(
+    [
+        'echarts',
+        'echarts/chart/line',
+        'echarts/chart/bar',
+        'echarts/chart/scatter',
+        'echarts/chart/k',
+        'echarts/chart/pie',
+        'echarts/chart/radar',
+        'echarts/chart/force',
+        'echarts/chart/chord',
+        'echarts/chart/map' 
+    ],
+    function(ec){
+       myChart4 = ec.init(document.getElementById("main2"));
+       
+    });
 
 </script> 
 
@@ -400,6 +436,14 @@ function getOK(){
     seriesCounter = 0,
     names = ['0~20%','20~40%','40~60%','60~80%','80~100%','dash','no dash'],
     colors = Highcharts.getOptions().colors;
+    var chart = new Highcharts.Chart({chart: {
+              renderTo: 'main',
+                      defaultSeriesType: 'column'
+                      },});
+    chart.showLoading();
+
+    myChart4.clear();
+    myChart4.showLoading();
 
       $.ajax({
             type : "post",
@@ -794,41 +838,9 @@ option = {
 };
 
         //------------------------------
-    var fileLocation = './www/js/echarts-map';
-    require.config({
-        paths:{ 
-            echarts: fileLocation,
-            'echarts/chart/line': fileLocation,
-            'echarts/chart/bar': fileLocation,
-            'echarts/chart/scatter': fileLocation,
-            'echarts/chart/k': fileLocation,
-            'echarts/chart/pie': fileLocation,
-            'echarts/chart/radar': fileLocation,
-            'echarts/chart/map': fileLocation,
-            'echarts/chart/chord': fileLocation,
-            'echarts/chart/force': fileLocation
-        }
-    });
 
-// 按需加载
-require(
-    [
-        'echarts',
-        'echarts/chart/line',
-        'echarts/chart/bar',
-        'echarts/chart/scatter',
-        'echarts/chart/k',
-        'echarts/chart/pie',
-        'echarts/chart/radar',
-        'echarts/chart/force',
-        'echarts/chart/chord',
-        'echarts/chart/map' 
-    ],
-    function(ec){
-      var myChart4 = ec.init(document.getElementById("main2"));
+      myChart4.hideLoading();
       myChart4.setOption(option,true);
-    });
-
     }});
 
 }

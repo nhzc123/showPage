@@ -28,6 +28,14 @@
     names = ['0~20%','20~40%','40~60%','60~80%','80~100%'],
     colors = Highcharts.getOptions().colors;
 
+    var chart = new Highcharts.Chart({chart: {
+              renderTo: 'engagement',
+                      defaultSeriesType: 'column'
+                      },});
+    chart.showLoading();
+
+
+
       $.ajax({
             type : "get",
             url : "service/home/indexCdf.php?callback=?&type=2",
@@ -71,6 +79,7 @@ function createChart(){
 
 
 
+    
     $('#engagement').highcharts('StockChart', {
         chart: {
         },

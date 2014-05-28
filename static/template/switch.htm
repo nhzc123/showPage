@@ -24,6 +24,33 @@ scopeTop="";
 scopeEnd="";
 </script>
 
+<script>
+
+  $(document).ready(function(){
+        require.config({
+            paths:{ 
+                'echarts' : './echartjs/echarts',
+                'echarts/chart/line' : './echartjs/echarts-map'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function(ec) {
+                // 基于准备好的dom，初始化echarts图表
+                 myChart2 = ec.init(document.getElementById('afterRemain')); 
+                 myChart3 = ec.init(document.getElementById('afterSwitch')); 
+                
+               })
+
+
+  });
+
+</script>
 	
 
 <script>
@@ -61,8 +88,8 @@ function show(tag){
 
       if(tag =="light")
       {
-            var myChart3 = ec.init(document.getElementById('userAreas'));
-            myChart3.setOption({
+            var myChartt = ec.init(document.getElementById('userAreas'));
+            myChartt.setOption({
                 title:{
                     text:'userAreas'
 
@@ -91,7 +118,7 @@ function show(tag){
             });
             
             var ecConfig = require('echarts/config');
-            myChart3.on(ecConfig.EVENT.MAP_SELECTED, function(param){
+            myChartt.on(ecConfig.EVENT.MAP_SELECTED, function(param){
                 var selected = param.selected;
                 var str = ' ';
                for (var p in selected) {
@@ -107,8 +134,8 @@ function show(tag){
 
         else if(tag == "light2")
       {
-            var myChart2 = ec.init(document.getElementById('serverAreas'));
-            myChart2.setOption({
+            var myChartl = ec.init(document.getElementById('serverAreas'));
+            myChartl.setOption({
 
                 title:{
                     text:'serverAreas'
@@ -136,7 +163,7 @@ function show(tag){
 
             
             var ecConfig = require('echarts/config');
-            myChart2.on(ecConfig.EVENT.MAP_SELECTED, function(param){
+            myChartl.on(ecConfig.EVENT.MAP_SELECTED, function(param){
                 var selected = param.selected;
                 var str = ' ';
                for (var p in selected) {
@@ -385,15 +412,6 @@ document.getElementById('userCount').innerHTML = "";
 
 
 
-  <div id="loading"
-      style="position: fixed !important; position: absolute; display: none; top: 0; left: 0; height: 100%; width: 100%; z-index: 999; background: #000 url(http://interjc.googlecode.com/svn/trunk/waterfall/img/load.gif) no-repeat center center; opacity: 0.6; filter: alpha(opacity =                                                                                                                         60); font-size: 14px; line-height: 20px;"
-      onclick="javascript:turnoff('loading')">
-      <p id="loading-one"
-        style="color: #fff; position: absolute; top: 50%; left: 50%; margin: 20px 0 0 -50px; padding: 3px 10px;"
-        onclick="javascript:turnoff('loading')">
-        正在执行操作..
-      </p>
-    </div>
 
 	
 	
@@ -509,12 +527,16 @@ document.getElementById('userCount').innerHTML = "";
     //alert(serverResult);
 //    window.open("switchSnapshot.php");
 
-    document.getElementById("loading").style.display="inline"; 
+    myChart2.clear();
+    myChart3.clear();
+    myChart2.showLoading();
+    myChart3.showLoading();
     //drawCdf-----------
 
     afterRemain="";
 
 
+    
       $.ajax({
             type : "post",
             url : "service/switch/afterRemainCdf.php?callback=?",
@@ -533,27 +555,6 @@ document.getElementById('userCount').innerHTML = "";
         //alert(data);
       afterRemain=data;
 
-    /*  if(Array.isArray(afterRemain))
-      alert("array");
-      else
-      alert("object");
-      */  
-        require.config({
-            paths:{ 
-                'echarts' : './echartjs/echarts',
-                'echarts/chart/line' : './echartjs/echarts-map'
-            }
-        });
-        
-        // 使用
-        require(
-            [
-                'echarts',
-                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
-            ],
-            function(ec) {
-                // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('afterRemain')); 
 
                       option = {
     title : {
@@ -605,11 +606,10 @@ document.getElementById('userCount').innerHTML = "";
 
 
                 
-                myChart.setOption(option); 
+                myChart2.hideLoading();
+                myChart2.setOption(option); 
 
 
-              }
-              );
             }
           });
 
@@ -638,22 +638,6 @@ document.getElementById('userCount').innerHTML = "";
       afterCdf=data;
 
         
-        require.config({
-            paths:{ 
-                'echarts' : './echartjs/echarts',
-                'echarts/chart/line' : './echartjs/echarts-map'
-            }
-        });
-        
-        // 使用
-        require(
-            [
-                'echarts',
-                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
-            ],
-            function(ec) {
-                // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('afterSwitch')); 
 
                       option = {
     title : {
@@ -705,11 +689,10 @@ document.getElementById('userCount').innerHTML = "";
 
 
                 
-                myChart.setOption(option); 
+                myChart3.hideLoading()
+                myChart3.setOption(option); 
 
 
-              }
-              );
             }
           });
 
@@ -729,6 +712,12 @@ document.getElementById('userCount').innerHTML = "";
     seriesCounter = 0,
     names = ['0~20%','20~40%','40~60%','60~80%','80~100%'],
     colors = Highcharts.getOptions().colors;
+
+    var chart = new Highcharts.Chart({chart: {
+              renderTo: 'engagement',
+                      defaultSeriesType: 'column'
+                      },});
+    chart.showLoading();
 
       $.ajax({
             type : "post",
@@ -767,7 +756,6 @@ document.getElementById('userCount').innerHTML = "";
 
       if (seriesCounter == names.length) {
         createChart();
-    document.getElementById("loading").style.display="none"; 
       }
     });
   }); 
