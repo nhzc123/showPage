@@ -517,10 +517,10 @@ document.getElementById('userCount').innerHTML = "";
     if(serverResult=="")
       serverResult="all";
 
-    scopeTop=$("#scopeTop").val();
-    scopeEnd=$("#scopeEnd").val();
+    scopeTop= parseInt($("#scopeTop").val());
+    scopeEnd=parseInt($("#scopeEnd").val());
 
-    if(scopeTop<0 || scopeTop>100 ||scopeTop<0 ||scopeEnd>100 ||scopeTop>scopeEnd){
+    if(scopeTop<0 || scopeTop>100 ||scopeEnd<0 ||scopeEnd>100 ||scopeTop>scopeEnd){
       alert("input is not allowed");
       return ;
     }
