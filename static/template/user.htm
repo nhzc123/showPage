@@ -72,6 +72,7 @@
             <li><a href="load.php">Load</a></li>            
             <li><a href="user.php" class="active">User</a></li>
             <li><a href="switch.php">Switch</a></li>
+            <li><a href="bitRateType.php">BitRate</a></li>
          </ul>
         </div>
         

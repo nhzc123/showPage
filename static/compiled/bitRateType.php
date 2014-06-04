@@ -19,6 +19,11 @@
 selectResult = "";
 scopeTop="";
 scopeEnd="";
+switchTop="";
+switchEnd="";
+switchBefore="";
+switchAfter="";
+rateScope="";
 </script>
 
 <script>
@@ -137,11 +142,36 @@ scopeEnd="";
           <dd><div><a>down-down</a></div></dd>
         </dl>
        
+        <dl>
+          <dt>next switch type:</dt>
+          <dd><div><a>all</a></div></dd>
+          <dd><div><a>up</a></div></dd>
+          <dd><div><a>down</a></div></dd>
+          <dd><div><a>end</a></div></dd>
+        </dl>
       <dl>
 
         <dt>playPercent:</dt>
           <dd><div><input style="width:100px" value="0" id="scopeTop"type="text"> -</div></dd>
           <dd><div><input style="width:100px" value="100" id="scopeEnd"type="text"></div></dd>(between 0~100%)
+        </dl>
+      <dl>
+
+        <dt>switchPercent:</dt>
+          <dd><div><input style="width:100px" value="0" id="switchTop"type="text"> -</div></dd>
+          <dd><div><input style="width:100px" value="100" id="switchEnd"type="text"></div></dd>(between 0~100%)
+        </dl>
+      <dl>
+
+        <dt>beforeRate:</dt>
+          <dd><div><input style="width:100px"  id="switchBefore"type="text"> </div></dd>
+          <dt>afterRate:</dt>
+          <dd><div><input style="width:100px"  id="switchAfter"type="text"></div></dd>
+        </dl>
+      <dl>
+
+        <dt>rateScope:</dt>
+          <dd><div><input style="width:100px"  id="rateScope"type="text"> </div></dd>
         </dl>
       </div>
 
@@ -294,9 +324,21 @@ scopeEnd="";
   function getOK(){
 
     if(selectResult=="")
-      selectResult="all,all,all";
+      selectResult="all,all,all,all";
 
 
+    switchBefore=$("#switchBefore").val();
+    switchAfter=$("#switchAfter").val();
+    rateScope=$("#rateScope").val();
+
+
+    switchTop=parseInt($("#switchTop").val());
+    switchEnd=parseInt($("#switchEnd").val());
+
+    if(switchTop<0 || switchTop>100 ||switchTop<0 ||switchEnd>100 ||switchTop>switchEnd){
+      alert("input is not allowed");
+      return ;
+    }
     scopeTop=parseInt($("#scopeTop").val());
     scopeEnd=parseInt($("#scopeEnd").val());
 
@@ -307,6 +349,12 @@ scopeEnd="";
     //alert(serverResult);
 //    window.open("switchSnapshot.php");
 
+    if(switchBefore=="")
+    switchBefore="all";
+    if(switchAfter=="")
+    switchAfter="all";
+    if(rateScope=="")
+    rateScope="all";
     myChart2.clear();
     myChart2.showLoading();
     //drawCdf-----------
@@ -321,7 +369,12 @@ scopeEnd="";
             data:{
               selectResult:selectResult,
               scopeTop:scopeTop,
-              scopeEnd:scopeEnd
+              scopeEnd:scopeEnd,
+              switchTop:switchTop,
+              switchEnd:switchEnd,
+              switchBefore:switchBefore,
+              switchAfter:switchAfter,
+              rateScope:rateScope
 
             },
             dataType : "jsonp",

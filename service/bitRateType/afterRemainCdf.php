@@ -8,6 +8,11 @@ session_start();
 $reResult = $_POST['selectResult'];
 $scopeTop = $_POST['scopeTop'];
 $scopeEnd = $_POST['scopeEnd'];
+$switchTop = $_POST['switchTop'];
+$switchEnd = $_POST['switchEnd'];
+$switchBefore = $_POST['switchBefore'];
+$switchAfter = $_POST['switchAfter'];
+$rateScope = $_POST['rateScope'];
 $reR = explode(",",$reResult);
 
 
@@ -16,7 +21,7 @@ $condition="";
 if ($reResult != null)
 {
 
-	//$re 0表示device 1表示video type 2表示switch type
+	//$re 0表示device 1表示video type 2表示switch type 3表示next switch type
 
 	if($reR[0]!="all")
 	{
@@ -39,11 +44,34 @@ if ($reResult != null)
 			$condition .= " bs_type = '".$reR[2]."'";
 
 	}
+	if($reR[3] != "all"){
+
+		if( $condition !="")
+			$condition .= " and next_bs_type = '".$reR[3]."'";
+		else
+			$condition .= " next_bs_type = '".$reR[3]."'";
+
+	}
 
 	if($condition != "")
 		$condition .=" and play_percents between ".$scopeTop." and ".$scopeEnd;
 	else
 		$condition .=" play_percents between ".$scopeTop." and ".$scopeEnd;
+
+	if($condition != "")
+		$condition .=" and bs_chunk_percent between ".$switchTop." and ".$switchEnd;
+	else
+		$condition .=" bs_chunk_percent between ".$switchTop." and ".$switchEnd;
+
+	if($switchBefore !="all")
+		$condition .=" and from_bitrate=".$switchBefore;
+
+	if($switchAfter != "all")
+		$condition .= " and to_bitrate=".$switchAfter;
+
+	if($rateScope != "all")
+		$condition .= " and bs_change_value=".$rateScope;
+
 
 
 

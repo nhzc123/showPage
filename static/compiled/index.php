@@ -943,6 +943,7 @@ myChart3.on(ecConfig.EVENT.MAP_SELECTED, function(param){
             <li><a href="load.php">Load</a></li>
             <li><a href="user.php">User</a></li>
          <li ><a href="switch.php">Switch</a></li> 
+         <li ><a href="bitRateType.php">BitRate</a></li> 
          </ul>
         </div>
         
