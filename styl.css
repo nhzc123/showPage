@@ -260,7 +260,7 @@ div.cara {
 	position: absolute;
 	right: 00px;
 	font-size: 95%;
-	background: url('img/menu_cut.jpg') no-repeat scroll right;
+	background: url('img/menu_cut.jpg') repeat scroll right;
 	margin-right: 0px;
     }
     

@@ -45,6 +45,7 @@ rateScope="";
             function(ec) {
                 // 基于准备好的dom，初始化echarts图表
                  myChart2 = ec.init(document.getElementById('afterRemain')); 
+                 myChart3 = ec.init(document.getElementById('afterSwitch')); 
                 
                })
 
@@ -204,6 +205,7 @@ rateScope="";
       
    
 
+       <div id="afterSwitch" style="height: 500px; min-width: 310px"></div>
        <div id="afterRemain" style="height: 500px; min-width: 310px"></div>
 
 
@@ -356,7 +358,9 @@ rateScope="";
     if(rateScope=="")
     rateScope="all";
     myChart2.clear();
+    myChart3.clear();
     myChart2.showLoading();
+    myChart3.showLoading();
     //drawCdf-----------
 
     afterRemain="";
@@ -443,6 +447,94 @@ rateScope="";
           });
 
 
+    afterCdf="";
+
+
+      $.ajax({
+            type : "post",
+            url : "service/bitRateType/afterSwitchCdf.php?callback=?",
+            data:{
+              selectResult:selectResult,
+              scopeTop:scopeTop,
+              scopeEnd:scopeEnd,
+              switchTop:switchTop,
+              switchEnd:switchEnd,
+              switchBefore:switchBefore,
+              switchAfter:switchAfter,
+              rateScope:rateScope
+
+            },
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+        //alert(data);
+      afterCdf=data;
+
+        
+
+                      option = {
+    title : {
+        text: 'afterSwitchCdf',
+        subtext: 'BesTV'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['0%','10%','20%','30%','40%','50%','60%','70%','80%','90%','100%']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            axisLabel : {
+                show:true,
+                interval: 'auto',    // {number}
+                formatter: '{value} %',    // Template formatter!
+            }
+        }
+    ],
+    series : [
+        {
+            name:'成交',
+            type:'line',
+            smooth:true,
+            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+            data:afterCdf
+        }
+    ]
+};
+                    
+
+
+                
+                myChart3.hideLoading()
+                myChart3.setOption(option); 
+
+
+            }
+          });
+
+
+
+
+
+    //-----------------
 
 
 

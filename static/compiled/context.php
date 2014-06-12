@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="styl.css" type="text/css">
         
 	
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="jquery.min.js"></script>
 
 <script src="echartjs/esl.js"></script>

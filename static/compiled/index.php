@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="styl.css" type="text/css">
    <link rel="stylesheet" href="tab.css" type="text/css"> 
         
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="jquery.min.js"></script>
 
 <script src="echartjs/esl.js"></script>
@@ -1046,7 +1045,6 @@ myChart3.on(ecConfig.EVENT.MAP_SELECTED, function(param){
 
 
           <li style="height:32px;">
-            <a style="text-decoration:none;font-size:16px; color:#C4C6C9" href="#" onclick="windowscrollTo(0,120);return false;">view numbers</a>
           </li>
 
           <li style="height:32px;">
