@@ -1,2 +1,2 @@
-src/lib/excanvas.js
-src/tool/env.js
+src/util/mapData/geoJson/*
+src/util/mapData/rawData/geoJson/*

@@ -21,6 +21,9 @@
 areas ="";
 allData="";
 myChart4="";
+myChartT="";
+myChartPie="";
+myChartBar="";
 </script>
 
   
@@ -196,6 +199,9 @@ require(
     ],
     function(ec){
        myChart4 = ec.init(document.getElementById("main2"));
+       myChartT = ec.init(document.getElementById("timeLine"));
+       myChartPie = ec.init(document.getElementById("typePie"));
+       myChartBar = ec.init(document.getElementById("typeBar"));
        
     });
 
@@ -295,9 +301,22 @@ require(
       
       <div id="main2" style="height:500px;mid-width:310px">
         </div>
-
+      <div  style="height:400px;mid-width:310px">
+	 <div style = "width:450px;float:left">
+		 <div id = "typePie" style = "min-width:110px;height:400px;margin:0 auto">
+		 </div>
+	 </div>
+	 <div style = "width:450px;float:left">
+		 <div id = "typeBar" style = "min-width:110px;height:400px;margin:0 auto">
+		 </div>
+	 </div>
+	</div>
+	
+      <div id="timeLine" style="height:400px;mid-width:310px">
+        </div>
       <div id="main" style="height:700px;mid-width:310px">
         </div>
+
 
 
 
@@ -353,26 +372,6 @@ require(
          
 
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -442,8 +441,343 @@ function getOK(){
                       },});
     chart.showLoading();
 
+    myChartPie.clear();
+    myChartPie.showLoading();
+    myChartBar.clear();
+    myChartBar.showLoading();
+    myChartT.clear();
+    myChartT.showLoading();
     myChart4.clear();
     myChart4.showLoading();
+
+
+	
+//------------------时间轴饼图-----------------------------
+
+      $.ajax({
+            type : "post",
+            data:{
+              areas:areas,
+              isp:ispPost,
+              name:namePost,
+              time:time,
+
+            },
+            url : "service/load/switchTime.php?callback=?&type=1",
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+//--------------option--------------------------------------
+var idx = 1;
+option = {
+    timeline : {
+        data : data.timeLine,
+        label : {
+            formatter : function(s) {
+				return s.slice(11,16);
+            }
+        },
+		autoPlay:true
+    },
+    options : [
+        {
+            title : {
+                text: 'Dash Switching time',
+                subtext: 'BestTV'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} time : {c} ({d}%)"
+            },
+            legend: {
+                data:['0','1','2','3','4','5','6','7','other']
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[0]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[1]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[2]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[3]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[4]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[5]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[6]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[7]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[8]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[9]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[10]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[11]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[12]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[13]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[14]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[15]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[16]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[17]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[18]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[19]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[20]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[21]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[22]
+                }
+            ]
+        },
+        {
+            series : [
+                {
+                    name:'Dash Switching time',
+                    type:'pie',
+                    center: ['50%', '45%'],
+                    radius: '50%',
+                    data:data.series[23]
+                }
+            ]
+        },
+    ]
+};
+                    
+//-------------------------------------------------
+
+
+
+      myChartT.hideLoading();
+      myChartT.setOption(option);
+
+			}
+		});
+//---------------------------------------------------------
 
       $.ajax({
             type : "post",
@@ -843,6 +1177,103 @@ option = {
       myChart4.setOption(option,true);
     }});
 
+//二图联动-----------------
+
+
+      $.ajax({
+            type : "post",
+            data:{
+              areas:areas,
+              isp:ispPost,
+              name:namePost,
+              time:time,
+
+            },
+            url : "service/load/videoType.php?callback=?&type=1",
+            dataType : "jsonp",
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+            success : function(data){
+
+//--------------option--------------------------------------
+
+option = {
+    title : {
+        text: 'video type',
+        subtext: 'BestTV',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+		data:data.typeName,
+    },
+    calculable : true,
+    series : [
+        {
+            name:'type ',
+            type:'pie',
+            radius : '55%',
+            center: ['50%', 225],
+			data:data.totalType,
+        }
+    ]
+};
+
+option2 = {
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {
+            type: 'shadow'
+        }
+    },
+    legend: {
+		data:data.typeName,
+    },
+    toolbox: {
+        show : true,
+        orient : 'vertical',
+        y : 'center',
+        feature : {
+            mark : {show: true},
+            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : data.timeLine
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            splitArea : {show : true}
+        }
+    ],
+    grid: {
+        x2:40
+    },
+	series:data.series,
+};
+
+myChartBar.hideLoading();
+myChartPie.hideLoading();
+myChartBar.setOption(option2);
+myChartPie.setOption(option);
+
+myChartBar.connect(myChartPie);
+myChartPie.connect(myChartBar);
+
+
+}});
+//------------------------
 }
 
 </script>
